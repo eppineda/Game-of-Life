@@ -120,14 +120,23 @@ var Pattern = function() {
 
 var transitions = []
 var fewerThanTwo = function(cell) {
+    console.log("fewerThanTwo", cell, cell.neighbors.length)
     return cell
 }
 var twoOrThree = function(cell) {
+    console.log("twoOrThree", cell, cell.neighbors.length)
     return cell
 }
 var moreThanThree = function(cell) {
+    console.log("moreThanThree", cell, cell.neighbors.length)
     return cell
 }
 var exactlyThree = function(cell) {
+    console.log("exactlyThree", cell, cell.neighbors.length)
     return cell
 }
+
+transitions.push(fewerThanTwo)
+transitions.push(twoOrThree)
+transitions.push(moreThanThree)
+transitions.push(exactlyThree)

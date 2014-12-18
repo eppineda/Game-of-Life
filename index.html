@@ -7,9 +7,19 @@
 <body>
     <h1>Game of Life</h1>
     <script type="text/javascript">
-    var cells = seed(10, 100, 100)
+    var cells = seed(10, maximumX = 5, maximumY = 5)
     
     console.log(cells)
+
+    // apply each rule to each cell
+
+    var nextGeneration = []
+    for (var a = 0, b = cells.length; a < b; ++a) {
+        console.log('-----------', cells[a])
+        for (var x = 0, y = transitions.length; x < y; ++x) {
+            var cell = transitions[x](cells[a])
+        }
+    }
     </script>
 </body>
 </html>
