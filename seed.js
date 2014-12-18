@@ -12,10 +12,9 @@ function seed(howMany, maxX, maxY) {
     var newCells = []
     for (var i = 0, j = howMany; i < j; ++i) {
         var c = new Cell(Math.floor(Math.random() * (maxX + 1)),
-            Math.floor(Math.random() * (maxY + 1))) // small chance of duplicate cell
+            Math.floor(Math.random() * (maxY + 1))) // todo: chance of duplicate cell
         var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
                           constants.s, constants.sw, constants.w ]
-        var neighbors = []
 
         for (there in lookWhere) {
             var whereAt
@@ -50,12 +49,14 @@ function seed(howMany, maxX, maxY) {
             var found = findCell(newCells, whereAt.x, whereAt.y)
 
             if (null == found) continue
-            neighbors[lookWhere[there]] = found
-            console.log(c, c.neighbors)
-            found.neighbors[oppositeOf(lookWhere[there])] = c // neighbors in both directions
-            console.log(found, found.neighbors)
+            try {
+                c.addNeighbor(lookWhere[there], found)
+            }
+            catch(CoordinateException) {
+                console.error(CoordinateException.message)
+            }
+            console.log('neighbors', c, '<-->', found)
         } // for: there
-        c.neighbors = neighbors
         newCells[i] = c
     } // for: i
     return newCells
