@@ -97,6 +97,7 @@ var Cell = function(x, y) {
     this.neighbors = [] // no neighboring cells by default
 }
 
+// By definition, to be a neighbor, you must be alive (not dead).
 Cell.prototype.addNeighbor = function(position) {
     var cell = null
     if (constants.nw != position &&
@@ -120,18 +121,26 @@ var Pattern = function() {
 
 var transitions = []
 var fewerThanTwo = function(cell) {
+    if (constants.alive == cell.state && 2 > cell.neighbors.length)
+        cell.state = constants.dead
     console.log("fewerThanTwo", cell, cell.neighbors.length)
     return cell
 }
 var twoOrThree = function(cell) {
+    if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
+        cell.state = constants.alive
     console.log("twoOrThree", cell, cell.neighbors.length)
     return cell
 }
 var moreThanThree = function(cell) {
+    if (constants.alive == cell.state && 3 < cell.neighbors.length)
+        cell.state = constants.dead
     console.log("moreThanThree", cell, cell.neighbors.length)
     return cell
 }
 var exactlyThree = function(cell) {
+    if (constants.dead == cell.state && 3 == cell.neighbors.length)
+        cell.state = constants.alive
     console.log("exactlyThree", cell, cell.neighbors.length)
     return cell
 }
