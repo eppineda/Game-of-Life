@@ -17,7 +17,6 @@ function seed(howMany, maxX, maxY) {
                           constants.s, constants.sw, constants.w ]
         var neighbors = []
 
-        newCells[i] = c
         for (there in lookWhere) {
             var whereAt
 
@@ -46,16 +45,18 @@ function seed(howMany, maxX, maxY) {
                 case constants.w:
                     whereAt = wOf(c.x, c.y)
                     break
-            }
+            } // switch
 
-            console.log(c, lookWhere[there], whereAt)
             var found = findCell(newCells, whereAt.x, whereAt.y)
 
             if (null == found) continue
-            neighbors.push()
-        } // for
-        
-
-    }
+            neighbors[lookWhere[there]] = found
+            console.log(c, c.neighbors)
+            found.neighbors[oppositeOf(lookWhere[there])] = c // neighbors in both directions
+            console.log(found, found.neighbors)
+        } // for: there
+        c.neighbors = neighbors
+        newCells[i] = c
+    } // for: i
     return newCells
 }
