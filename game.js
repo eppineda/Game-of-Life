@@ -13,7 +13,9 @@ var constants = {
     "se":"se",
     "s":"s",
     "sw":"sw",
-    "w":"w"
+    "w":"w",
+    "alive":"alive",
+    "dead":"dead"
 }
 
 function nwOf(x, y) {
@@ -53,6 +55,7 @@ function wOf(x, y) {
 var Cell = function(x, y) {
     this.x = x
     this.y = y
+    this.state = constants.alive
     this.neighbors = { 
         "nw":null, 
         "n":null, 
