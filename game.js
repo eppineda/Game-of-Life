@@ -97,7 +97,19 @@ var Cell = function(x, y) {
     this.neighbors = [] // no neighboring cells by default
 }
 
-// By definition, to be a neighbor, you must be alive (not dead).
+Cell.prototype.addNeighbor = function(position, cell) {
+    if (constants.nw != position &&
+        constants.n  != position &&
+        constants.ne != position &&
+        constants.e  != position &&
+        constants.se != position &&
+        constants.sw != position &&
+        constants.w)
+        throw { name:'CoordinateException', message:'\"' + position + '\" is not a valid direction.' }
+    this.neighbors[position] = cell
+    cell.neighbors[oppositeOf(position)] = this // commutative relationship between cells
+} // addNeighbor
+
 Cell.prototype.createNeighbor = function(position) {
     var cell = null
     if (constants.nw != position &&
@@ -107,11 +119,11 @@ Cell.prototype.createNeighbor = function(position) {
         constants.se != position &&
         constants.sw != position &&
         constants.w)
-        return null // not a valid position for a new cell
+        throw { name:'CoordinateException', message:'\"' + direction + '\" is not a valid direction.' }
     cell = new Cell(position.x, position.y)
     if (constants.alive != cell.state)
         throw { name:'CellException', message:'Dead cell created.' }
-    this.neighbors[positon] = cell
+    this.addNeighbor(position, cell)
     return cell
 }
 
