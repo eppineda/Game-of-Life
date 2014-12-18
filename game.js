@@ -3,9 +3,9 @@
  * Copyright (c) 2014 Enrique Pineda
  */
 
-// coordinates and navigation
+// coordinates, location and navigation
 
-var constants = {
+var constants = { // adjacent cells can occur horizontally, veritcally or diagonnally
     "nw":"nw",
     "n":"n",
     "ne":"ne",
