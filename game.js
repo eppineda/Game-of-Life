@@ -98,7 +98,7 @@ var Cell = function(x, y) {
 }
 
 // By definition, to be a neighbor, you must be alive (not dead).
-Cell.prototype.addNeighbor = function(position) {
+Cell.prototype.createNeighbor = function(position) {
     var cell = null
     if (constants.nw != position &&
         constants.n  != position &&
@@ -109,6 +109,8 @@ Cell.prototype.addNeighbor = function(position) {
         constants.w)
         return null // not a valid position for a new cell
     cell = new Cell(position.x, position.y)
+    if (constants.alive != cell.state)
+        throw { name:'CellException', message:'Dead cell created.' }
     this.neighbors[positon] = cell
     return cell
 }
