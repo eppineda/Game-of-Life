@@ -50,6 +50,36 @@ function wOf(x, y) {
     return { "x":x - 1, "y":y }
 }
 
+function oppositeOf(direction) {
+    switch (direction) {
+        case constants.nw:
+            return constants.se
+            break
+        case constants.n:
+            return constants.s
+            break
+        case constants.ne:
+            return constants.sw
+            break
+        case constants.e:
+            return constants.w
+            break
+        case constants.se:
+            return constants.nw
+            break
+        case constants.s:
+            return constants.n
+            break
+        case constants.sw:
+            return constants.ne
+            break
+        case constants.w:
+            return constants.e
+            break
+        default: throw { name:'CoordinateException', message:'\"' + direction + '\" is not a valid direction.' }
+    }
+}
+
 // cells
 
 var Cell = function(x, y) {

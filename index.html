@@ -12,6 +12,13 @@
     var cells = seed(10, 100, 100)
     
     console.log(cells)
+    try {
+        console.log(oppositeOf(constants.se))
+        console.log(oppositeOf('this way'))
+    }
+    catch(CoordinateException) {
+        console.error(CoordinateException.message)
+    }
     </script>
 </body>
 </html>
