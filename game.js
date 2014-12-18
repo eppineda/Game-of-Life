@@ -113,5 +113,21 @@ Cell.prototype.addNeighbor = function(position) {
 }
 
 var Pattern = function() {
-    this.cells = []
+    this.cells = [] // none in this pattern by default
+}
+
+// transitions
+
+var transitions = []
+var fewerThanTwo = function(cell) {
+    return cell
+}
+var twoOrThree = function(cell) {
+    return cell
+}
+var moreThanThree = function(cell) {
+    return cell
+}
+var exactlyThree = function(cell) {
+    return cell
 }
