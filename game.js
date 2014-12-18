@@ -103,8 +103,9 @@ Cell.prototype.addNeighbor = function(position, cell) {
         constants.ne != position &&
         constants.e  != position &&
         constants.se != position &&
+        constants.s  != position &&
         constants.sw != position &&
-        constants.w)
+        constants.w  != position)
         throw { name:'CoordinateException', message:'\"' + position + '\" is not a valid direction.' }
     this.neighbors[position] = cell
     cell.neighbors[oppositeOf(position)] = this // commutative relationship between cells
