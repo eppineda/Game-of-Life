@@ -94,16 +94,7 @@ var Cell = function(x, y) {
     this.x = x
     this.y = y
     this.state = constants.alive
-    this.neighbors = { 
-        "nw":null, 
-        "n":null, 
-        "ne":null, 
-        "e":null,
-        "se":null,
-        "s":null,
-        "sw":null,
-        "w":null
-    } // no neighboring cells by default
+    this.neighbors = [] // no neighboring cells by default
 }
 
 Cell.prototype.addNeighbor = function(position) {
