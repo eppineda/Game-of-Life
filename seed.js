@@ -11,8 +11,51 @@
 function seed(howMany, maxX, maxY) {
     var newCells = []
     for (var i = 0, j = howMany; i < j; ++i) {
-        newCells[i] = new Cell(Math.floor(Math.random() * (maxX + 1)),
-                               Math.floor(Math.random() * (maxY + 1)))
+        var c = new Cell(Math.floor(Math.random() * (maxX + 1)),
+            Math.floor(Math.random() * (maxY + 1))) // small chance of duplicate cell
+        var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
+                          constants.s, constants.sw, constants.w ]
+        var neighbors = []
+
+        newCells[i] = c
+        for (there in lookWhere) {
+            var whereAt
+
+            switch (lookWhere[there]) {
+                case constants.nw:
+                    whereAt = nwOf(c.x, c.y)
+                    break
+                case constants.n:
+                    whereAt = nOf(c.x, c.y)
+                    break
+                case constants.ne:
+                    whereAt = neOf(c.x, c.y)
+                    break
+                case constants.e:
+                    whereAt = eOf(c.x, c.y)
+                    break
+                case constants.se:
+                    whereAt = seOf(c.x, c.y)
+                    break
+                case constants.s:
+                    whereAt = sOf(c.x, c.y)
+                    break
+                case constants.sw:
+                    whereAt = swOf(c.x, c.y)
+                    break
+                case constants.w:
+                    whereAt = wOf(c.x, c.y)
+                    break
+            }
+
+            console.log(c, lookWhere[there], whereAt)
+            var found = findCell(newCells, whereAt.x, whereAt.y)
+
+            if (null == found) continue
+            neighbors.push()
+        } // for
+        
+
     }
     return newCells
 }

@@ -3,7 +3,7 @@
  * Copyright (c) 2014 Enrique Pineda
  */
 
-// plotting
+// coordinates and navigation
 
 var constants = {
     "nw":"nw",
@@ -78,6 +78,14 @@ function oppositeOf(direction) {
             break
         default: throw { name:'CoordinateException', message:'\"' + direction + '\" is not a valid direction.' }
     }
+}
+
+function findCell(cells, x, y) {
+    for (var i = 0, j = cells.length; i < j; ++i) {
+        if (x == cells[i].x && y == cells[i].y)
+            return cells[i]
+    }
+    return null
 }
 
 // cells
