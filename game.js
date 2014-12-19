@@ -126,7 +126,55 @@ Cell.prototype.createNeighbor = function(position) {
         throw { name:'CellException', message:'Dead cell created.' }
     this.addNeighbor(position, cell)
     return cell
-}
+} // createNeighbors
+
+Cell.prototype.findNeighbors = function(cells) {
+    var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
+                      constants.s, constants.sw, constants.w ]
+
+    for (there in lookWhere) {
+        var whereAt
+
+        switch (lookWhere[there]) {
+            case constants.nw:
+                whereAt = nwOf(c.x, c.y)
+                break
+            case constants.n:
+                whereAt = nOf(c.x, c.y)
+                break
+            case constants.ne:
+                whereAt = neOf(c.x, c.y)
+                break
+            case constants.e:
+                whereAt = eOf(c.x, c.y)
+                break
+            case constants.se:
+                whereAt = seOf(c.x, c.y)
+                break
+            case constants.s:
+                whereAt = sOf(c.x, c.y)
+                break
+            case constants.sw:
+                whereAt = swOf(c.x, c.y)
+                break
+            case constants.w:
+                whereAt = wOf(c.x, c.y)
+                break
+        } // switch
+
+        var found = findCell(cells, whereAt.x, whereAt.y)
+
+        if (null == found) continue
+        try {
+            addNeighbor(lookWhere[there], found)
+        }
+        catch(CoordinateException) {
+            console.error(CoordinateException.message)
+        }
+        console.log('neighbors', this, '<-->', found)
+    } // for: there
+    return neighbors.length
+} // findNeighbors
 
 var Pattern = function() {
     this.cells = [] // none in this pattern by default

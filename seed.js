@@ -16,6 +16,7 @@ function seed(howMany, maxX, maxY) {
         var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
                           constants.s, constants.sw, constants.w ]
 
+        // todo: move this for loop to game.js
         for (there in lookWhere) {
             var whereAt
 
