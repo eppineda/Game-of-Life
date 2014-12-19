@@ -6,7 +6,7 @@ I. Introduction
 This was my first exposure to Conway's Game of Life. I'm not confident that I fully 
 understand the game's rules, so I'm not certain that the implementation is an accurate
 representation of cell behavior as defined by the game.  In particular,
-- "simulataneous" application of transition rules -- need to think more about what the
+- "simultaneous" application of transition rules -- need to think more about what the
 implications are as each rule is applied to each cell.
 - rules governing the size of the initial cell population "seed". So, I left this up
 to the end user, which includes both the quantity and the location of cells.
@@ -29,7 +29,7 @@ Not complete. Lacks a graphical display of cell generations as they occur.
 IV. Implementation History
 
 First round was low-level programming for cell behavior (game.js and seed.js, with index.html
-acting as the entry point for a static test script, which is now disabled but still in the markup.
+acting as the entry point for a static test script, which is now disabled but still in the markup.)
 
 Second round was UI programming wih AngularJS, primarly making configurable to the end user 
 what was previously hard-coded simulation parameters.
@@ -39,12 +39,12 @@ and services (controllers.js and services,js, respectively) as necessary.
 
 V. Future Design Considerations
 
-A. Whether or not to allow off-grid (i.e. off-screen cellular creation)
+A. Whether or not to allow off-grid (i.e. off-screen) cellular creation
 
 B. Graphical Display
 
 I'm not yet skilled in animation with AngularJS. The current design uses a logical coordinate
-system, instead of actual pixel-based system based on browser resolution. That is to say,
+system, instead of a pixel-based system based on browser resolution. That is to say,
 coordinate(50, 35) is not pixel-coordinate(50, 35).
 
 I also like the grid display in use by gitHub in a user's Contribution graph. That would 
