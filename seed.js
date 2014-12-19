@@ -3,6 +3,8 @@
  * Copyright (c) 2014 Enrique Pineda
  */
 
+// This tests low-level cell behavior.
+
 /**
  * @param howMany cells would you like to seed with?
  * @param maxX maximum value of X in a 2-D coordinate system
