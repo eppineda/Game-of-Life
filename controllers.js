@@ -13,4 +13,10 @@ angular.module('gameoflife.controllers', [])
     }
 })
 .controller('SeedController', function($scope) {
+    $scope.setRows = function() {
+        console.log($scope.seed.howMany)
+    }
+    $scope.createCells = function() {
+        console.log('randomly creating cells')
+    }
 })
