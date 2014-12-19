@@ -30,4 +30,7 @@ angular.module('gameoflife.controllers', [])
             console.log($scope.seed.cells[i])
         }
     }
+    $scope.beginSimulation = function() {
+        console.log('BEGINNING SIMULATION')
+    }
 })
