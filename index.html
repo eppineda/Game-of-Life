@@ -48,11 +48,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="c in seed.cells">
-                <td style="text-align: right;">{{seed.cells.indexOf(c)}}</td>
-                <td><input type="number" ng-model="seed.cells[seed.cells.indexOf(c)].x" 
+            <tr ng-repeat="c in seed.coords">
+                <td style="text-align: right;">{{seed.coords.indexOf(c)}}</td>
+                <td><input type="number" ng-model="seed.coords[seed.coords.indexOf(c)].x" 
                     ng-change="setCoordinate()" /></td>
-                <td><input type="number" ng-model="seed.cells[seed.cells.indexOf(c)].y" 
+                <td><input type="number" ng-model="seed.coords[seed.coords.indexOf(c)].y" 
                     ng-change="setCoordinate()" /></td>
             </tr>
         </tbody>

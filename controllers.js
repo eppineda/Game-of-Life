@@ -6,7 +6,7 @@
 angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope) {
     $scope.grid = { 'width':3, 'height':3 }
-    $scope.seed = { 'howMany':0, 'cells':[] }
+    $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.resize = function() {
         if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 3 >
             $scope.grid.width || 3 > $scope.grid.height)
@@ -16,18 +16,18 @@ angular.module('gameoflife.controllers', [])
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
-            $scope.seed.cells[i] = { x:-1, y:-1 } // temporary. will become a cell later.
-        console.log($scope.seed.cells.length)
+            $scope.seed.coords[i] = { x:-1, y:-1 } // used to create cell
+        console.log($scope.seed.coords.length)
     }
     $scope.setCoordinate = function(index) {
-        console.log($scope.seed.cells)
+        console.log($scope.seed.coords)
     }
     $scope.randomizeCoords = function() {
         console.log('------------randomly generated coordinates')
-        for (var i = 0, j = $scope.seed.cells.length; i < j; ++i) {
-            $scope.seed.cells[i].x = Math.floor(Math.random() * ($scope.grid.width + 1))
-            $scope.seed.cells[i].y = Math.floor(Math.random() * ($scope.grid.height + 1))
-            console.log($scope.seed.cells[i])
+        for (var i = 0, j = $scope.seed.coords.length; i < j; ++i) {
+            $scope.seed.coords[i].x = Math.floor(Math.random() * ($scope.grid.width + 1))
+            $scope.seed.coords[i].y = Math.floor(Math.random() * ($scope.grid.height + 1))
+            console.log($scope.seed.coords[i])
         }
     }
     $scope.beginSimulation = function() {
