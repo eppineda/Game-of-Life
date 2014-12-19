@@ -70,3 +70,5 @@ D. Did not test thoroughly transition rules for cases where a cell was supposed 
 or be rejuvenated.
 
 E. The game really should stop when all cells are dead.
+
+F. Duplicate cells are allowed/possible.
