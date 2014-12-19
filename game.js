@@ -137,28 +137,28 @@ Cell.prototype.findNeighbors = function(cells) {
 
         switch (lookWhere[there]) {
             case constants.nw:
-                whereAt = nwOf(c.x, c.y)
+                whereAt = nwOf(x, y)
                 break
             case constants.n:
-                whereAt = nOf(c.x, c.y)
+                whereAt = nOf(x, y)
                 break
             case constants.ne:
-                whereAt = neOf(c.x, c.y)
+                whereAt = neOf(x, y)
                 break
             case constants.e:
-                whereAt = eOf(c.x, c.y)
+                whereAt = eOf(x, y)
                 break
             case constants.se:
-                whereAt = seOf(c.x, c.y)
+                whereAt = seOf(x, y)
                 break
             case constants.s:
-                whereAt = sOf(c.x, c.y)
+                whereAt = sOf(x, y)
                 break
             case constants.sw:
-                whereAt = swOf(c.x, c.y)
+                whereAt = swOf(x, y)
                 break
             case constants.w:
-                whereAt = wOf(c.x, c.y)
+                whereAt = wOf(x, y)
                 break
         } // switch
 
@@ -173,7 +173,7 @@ Cell.prototype.findNeighbors = function(cells) {
         }
         console.log('neighbors', this, '<-->', found)
     } // for: there
-    return neighbors.length
+    return this.neighbors.length
 } // findNeighbors
 
 var Pattern = function() {
