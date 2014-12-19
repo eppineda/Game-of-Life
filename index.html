@@ -68,18 +68,20 @@
     var maximumX = 5, maximumY = 5
     var cells = seed(10, maximumX, maximumY)
     
-    console.log(cells)
+    console.log('Testing seed generation only')
 
     // apply each rule to each cell
 
     var nextGeneration = []
     for (var a = 0, b = cells.length; a < b; ++a) {
         console.log('-----------', cells[a])
+        var cell = null
+
         for (var x = 0, y = transitions.length; x < y; ++x) {
-            var cell = transitions[x](cells[a])
+            cell = transitions[x](cells[a])
         }
+        nextGeneration.push(cell)
     }
-    </script>
-    -->
+    </script> -->
 </body>
 </html>
