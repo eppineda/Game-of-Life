@@ -13,8 +13,8 @@
 function seed(howMany, maxX, maxY) {
     var newCells = []
     for (var i = 0, j = howMany; i < j; ++i) {
-        var c = new Cell(Math.floor(Math.random() * (maxX + 1)),
-            Math.floor(Math.random() * (maxY + 1))) // todo: chance of duplicate cell
+        var c = new Cell(Math.floor(Math.random() * (maxX)),
+            Math.floor(Math.random() * (maxY))) // todo: chance of duplicate cell
 
         c.findNeighbors(newCells)
         newCells[i] = c

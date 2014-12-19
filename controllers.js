@@ -25,8 +25,8 @@ angular.module('gameoflife.controllers', [])
     $scope.randomizeCoords = function() {
         console.log('------------randomly generated coordinates')
         for (var i = 0, j = $scope.seed.coords.length; i < j; ++i) {
-            $scope.seed.coords[i].x = Math.floor(Math.random() * ($scope.grid.width + 1))
-            $scope.seed.coords[i].y = Math.floor(Math.random() * ($scope.grid.height + 1))
+            $scope.seed.coords[i].x = Math.floor(Math.random() * ($scope.grid.width))
+            $scope.seed.coords[i].y = Math.floor(Math.random() * ($scope.grid.height))
             console.log($scope.seed.coords[i])
         }
     }
