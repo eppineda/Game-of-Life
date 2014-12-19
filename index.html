@@ -21,6 +21,7 @@
 <body ng-app="gameoflife">
     <h1>Game of Life</h1>
     <h2>the playfield</h2>
+    <p>Specify the size of the grid the cells will be placed upon.</p>
     <fieldset ng-controller="GridController">
         <legend>Grid Dimensions</legend>
         <label for="maxX">horizontal:&nbsp;</label>
@@ -31,6 +32,7 @@
         ng-model="grid.height" ng-change="resize()"></input> 
     </fieldset>
     <h2>seed generation</h2>
+    <p>Enter the coordinates of each seed cell, or have them randomly placed.</p>
     <fieldset ng-controller="SeedController"> <legend>Cells</legend>
         <label for="howMany">how many?&nbsp;</label>
         <input id="howMany" type="number" min="0" ng-required ng-model="seed.howMany"
@@ -51,6 +53,7 @@
     </fieldset>
     <h2>simulation</h2>
     <script type="text/javascript">
+    <!-- tests creation of the seed generation and identification of neighbors -->
     var cells = seed(10, maximumX = 5, maximumY = 5)
     
     console.log(cells)
