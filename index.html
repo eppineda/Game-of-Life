@@ -20,10 +20,10 @@
 </head>
 <body ng-app="gameoflife" ng-controller="SimController">
     <h1>Game of Life</h1>
-    <h2>the playfield</h2>
-    <p>Specify the size of the grid the cells will be placed upon.</p>
     <fieldset>
-        <legend>Grid Dimensions</legend>
+        <legend>The Playfield</legend>
+        <h2>grid dimensions</h2>
+        <p>Specify the size of the grid the cells will be placed upon.</p>
         <label for="maxX">horizontal:&nbsp;</label>
         <input id="maxX" type="number" min="3" max="1000" ng-required
         ng-model="grid.width" ng-change="resize()"></input>
@@ -31,17 +31,21 @@
         <input id="maxY" type="number" min="3" max="1000" ng-required
         ng-model="grid.height" ng-change="resize()"></input> 
     </fieldset>
-    <h2>seed generation</h2>
-    <p>Enter the coordinates of each seed cell, or have them randomly placed.</p>
     <fieldset>
-        <legend>Cells</legend>
+        <legend>Seed Generation</legend>
+        <h2>cell coordinates</h2>
+        <p>Enter the coordinates of each seed cell, or have them randomly placed.</p>
         <label for="howMany">how many?&nbsp;</label>
         <input id="howMany" type="number" min="0" ng-required ng-model="seed.howMany"
         ng-change="setRows()" />
         <table id="seed">
         <thead>
             <tr><th>#</th><th>x-coord</th><th>y-coord</th></tr>
-            <tr><th colspan="3"><button id="randomize" ng-click="randomizeCoords()">randomize</th></tr>
+            <tr>
+                <th colspan="3">
+                    <button id="randomize" ng-click="randomizeCoords()">randomize</button>
+                </th>
+            </tr>
         </thead>
         <tbody>
             <tr ng-repeat="c in seed.cells">
@@ -54,7 +58,10 @@
         </tbody>
         </table>
     </fieldset>
-    <h2>simulation</h2>
+    <fieldset>
+        <legend>Simulation</legend>
+        <button id="start" ng-click="beginSimulation()">Begin simulation.</button>
+    </fieldset>
     <!-- tests creation of the seed generation and identification of neighbors
     <script type="text/javascript">
     var maximumX = 5, maximumY = 5
