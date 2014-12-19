@@ -91,6 +91,8 @@ function findCell(cells, x, y) {
 // cells
 
 var Cell = function(x, y) {
+    if ('undefined' == x || isNaN(x) || 'undefined' == y || isNaN(y))
+        throw { name:'CellException', message:'invalid coordinates' }
     this.x = x
     this.y = y
     this.state = constants.alive
@@ -137,28 +139,28 @@ Cell.prototype.findNeighbors = function(cells) {
 
         switch (lookWhere[there]) {
             case constants.nw:
-                whereAt = nwOf(x, y)
+                whereAt = nwOf(this.x, this.y)
                 break
             case constants.n:
-                whereAt = nOf(x, y)
+                whereAt = nOf(this.x, this.y)
                 break
             case constants.ne:
-                whereAt = neOf(x, y)
+                whereAt = neOf(this.x, this.y)
                 break
             case constants.e:
-                whereAt = eOf(x, y)
+                whereAt = eOf(this.x, this.y)
                 break
             case constants.se:
-                whereAt = seOf(x, y)
+                whereAt = seOf(this.x, this.y)
                 break
             case constants.s:
-                whereAt = sOf(x, y)
+                whereAt = sOf(this.x, this.y)
                 break
             case constants.sw:
-                whereAt = swOf(x, y)
+                whereAt = swOf(this.x, this.y)
                 break
             case constants.w:
-                whereAt = wOf(x, y)
+                whereAt = wOf(this.x, this.y)
                 break
         } // switch
 
@@ -166,7 +168,7 @@ Cell.prototype.findNeighbors = function(cells) {
 
         if (null == found) continue
         try {
-            addNeighbor(lookWhere[there], found)
+            this.addNeighbor(lookWhere[there], found)
         }
         catch(CoordinateException) {
             console.error(CoordinateException.message)

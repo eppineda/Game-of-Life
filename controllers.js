@@ -4,7 +4,7 @@
  */
 
 angular.module('gameoflife.controllers', [])
-.controller('SimController', function($scope) {
+.controller('SimController', function($scope, Game) {
     $scope.grid = { 'width':3, 'height':3 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.resize = function() {
@@ -32,5 +32,7 @@ angular.module('gameoflife.controllers', [])
     }
     $scope.beginSimulation = function() {
         console.log('BEGINNING SIMULATION')
+        var seedCells = Game.seed($scope.grid.width, $scope.grid.height, $scope.seed.coords)
+        console.log(seedCells)
     }
-})
+});

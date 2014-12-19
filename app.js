@@ -3,4 +3,4 @@
  * Copyright (c) 2014 Enrique Pineda
  */
 
-angular.module('gameoflife', ['gameoflife.controllers'])
+angular.module('gameoflife', ['gameoflife.controllers', 'gameoflife.services'])
