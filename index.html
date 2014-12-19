@@ -16,20 +16,23 @@
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="seed.js"></script>
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="controllers.js"></script>
 </head>
 <body ng-app="gameoflife">
     <h1>Game of Life</h1>
     <h2>the playfield</h2>
-    <fieldset>
+    <fieldset ng-controller="GridController">
         <legend>Grid Dimensions</legend>
         <label for="maxX">horizontal:&nbsp;</label>
-        <input id="maxX" type="number" value="10" ng-model="grid.width" />
+        <input id="maxX" type="number" min="3" max="1000" ng-required
+        ng-model="grid.width" ng-change="resize()"></input>
         <label for="maxY">vertical:&nbsp;</label>
-        <input id="maxY" type="number" size="2" value="10" ng-model="grid.height" />
+        <input id="maxY" type="number" min="3" max="1000" ng-required
+        ng-model="grid.height" ng-change="resize()"></input> 
     </fieldset>
     <h2>seed generation</h2>
-    <fieldset>
-        <legend>Cells</legend>
+    <fieldset ng-controller="SeedController"> <legend>Cells</legend>
         <label for="howMany">how many?&nbsp;</label>
         <input id="howMany" type="number" size="2" value="10" ng-model="seed.howMany" />
         <button id="randomize">randomize</button>
