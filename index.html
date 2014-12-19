@@ -1,11 +1,52 @@
+<!DOCTYPE html>
 <html>
 <head>
+    <style type="text/css">
+    body { color: #000000; background-color: #eeefff; }
+    input { text-align: right; }
+    #seed { float: right; }
+    table {
+        border: thin solid;
+    }
+    thead { background-color: #cccccc; }
+    tr, td {
+        border: thin dotted;
+    }
+    </style>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="game.js"></script>
     <script type="text/javascript" src="seed.js"></script>
 </head>
-<body>
+<body ng-app="gameoflife">
     <h1>Game of Life</h1>
+    <h2>the playfield</h2>
+    <fieldset>
+        <legend>Grid Dimensions</legend>
+        <label for="maxX">horizontal:&nbsp;</label>
+        <input id="maxX" type="number" value="10" ng-model="grid.width" />
+        <label for="maxY">vertical:&nbsp;</label>
+        <input id="maxY" type="number" size="2" value="10" ng-model="grid.height" />
+    </fieldset>
+    <h2>seed generation</h2>
+    <fieldset>
+        <legend>Cells</legend>
+        <label for="howMany">how many?&nbsp;</label>
+        <input id="howMany" type="number" size="2" value="10" ng-model="seed.howMany" />
+        <button id="randomize">randomize</button>
+        <table id="seed">
+        <thead>
+            <tr><th>#</th><th>x-coord</th><th>y-coord</th></tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="cell0" style="text-align: right;">0</td>
+                <td><input id="xcoord0" type="number" size="2" ng-model="cells[0].x" /></td>
+                <td><input id="ycoord0" type="number" size="2" ng-model="cells[0].y" /></td>
+            </tr>
+        </tbody>
+        </table>
+    </fieldset>
+    <h2>simulation</h2>
     <script type="text/javascript">
     var cells = seed(10, maximumX = 5, maximumY = 5)
     
