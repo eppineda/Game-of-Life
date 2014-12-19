@@ -21,6 +21,22 @@ angular.module('gameoflife.services', [])
                 newCells[i] = c
             } // for: i
             return newCells
-        }
-    }
+        }, // seed
+        nextGeneration:function(currentGen) {
+            console.log('----Transitioning current generation of cells')
+            // apply each rule to each cell
+
+            var cells = currentGen
+            var nextGeneration = []
+            for (var a = 0, b = cells.length; a < b; ++a) {
+                var afterTransition = null
+
+                for (var x = 0, y = transitions.length; x < y; ++x) {
+                    afterTransition = transitions[x](cells[a])
+                }
+                nextGeneration.push(afterTransition)
+            }
+            return nextGeneration
+        } // nextGeneration
+    } // return
 })

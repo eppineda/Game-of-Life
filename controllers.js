@@ -33,6 +33,17 @@ angular.module('gameoflife.controllers', [])
     $scope.beginSimulation = function() {
         console.log('BEGINNING SIMULATION')
         var seedCells = Game.seed($scope.grid.width, $scope.grid.height, $scope.seed.coords)
-        console.log(seedCells)
+        var currentGen = seedCells
+        var nextGen = null
+        var count = 0, limit = 5 // todo: temporary, until manual stop is implemented
+
+        // while (true) {
+        while (count++ < limit) {
+            console.log('current generation', currentGen)
+            // todo: render currentGen cells in browser
+            nextGen = Game.nextGeneration(currentGen)
+            console.log('next generation', nextGen)
+            currentGen = nextGen
+        }
     }
 });
