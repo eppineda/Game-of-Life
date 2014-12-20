@@ -44,10 +44,10 @@ A. Whether or not to allow off-grid (i.e. off-screen) cellular creation
 B. Graphical Display
 
 I'm not yet skilled in animation with AngularJS. The current design uses a logical coordinate
-system, instead of a pixel-based system based on browser resolution. That is to say,
+system, instead of a pixel-based system based on browser resolution. That is to say, for example,
 coordinate(50, 35) is not pixel-coordinate(50, 35).
 
-I also like the grid display in use by gitHub in a user's Contribution graph. That would 
+I also like the grid display in use by gitHub for a user's Contribution graph. That would 
 do very nicely.
 
 C. In a future version, real-time recognition of celluar patterns would probably be a lot fun.
