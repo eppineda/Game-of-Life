@@ -1,0 +1,9 @@
+body { color: #000000; background-color: #eeefff; }
+input { text-align: right; }
+table {
+    border: thin solid;
+}
+thead { background-color: #cccccc; }
+tr, td {
+    border: thin dotted;
+}
