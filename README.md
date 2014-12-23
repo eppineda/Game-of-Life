@@ -15,6 +15,12 @@ therefore, configurable here.
 
 II. Files
 
+A. Versions
+
+v0.1 - As formally submitted for review to Jack Russell Software.
+
+B. File Listing
+
 app.js - angular module definition
 controllers.js - end user interaction
 game.js - implementation of cell behavior
