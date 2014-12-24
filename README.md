@@ -21,12 +21,12 @@ v0.1 - As formally submitted for review to Jack Russell Software.
 
 B. File Listing
 
-app.js - angular module definition
-controllers.js - end user interaction
-game.js - implementation of cell behavior
-index.html - user interface
-seed.js - a test script
-services.js - game logic
+* app.js - angular module definition
+* controllers.js - end user interaction
+* game.js - implementation of cell behavior
+* index.html - user interface
+* seed.js - a test script
+* services.js - game logic
 
 III. Status
 
