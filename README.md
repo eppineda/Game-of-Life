@@ -37,7 +37,7 @@ IV. Implementation History
 First round was low-level programming for cell behavior (game.js and seed.js, with index.html
 acting as the entry point for a static test script, which is now disabled but still in the markup.)
 
-Second round was UI programming wih AngularJS, primarly making configurable to the end user 
+Second round was UI programming wih AngularJS, primarily making configurable to the end user 
 what was previously hard-coded simulation parameters.
 
 Third round was integration of game.js into the Angular application, creating controllers
@@ -56,14 +56,14 @@ coordinate(50, 35) is not pixel-coordinate(50, 35).
 I also like the grid display in use by gitHub for a user's Contribution graph. That would 
 do very nicely.
 
-C. In a future version, real-time recognition of celluar patterns would probably be a lot fun.
+C. In a future version, real-time recognition of cellular patterns would probably be a lot fun.
 
 D. Seeding from a flat file would likely make the game easier to use.
 
 VI. Known Defects/Shortcomings
 
 A. Limited to 5 cell generations. Because this game lacks manual control over when to 
-make it stop. The loop-control for inifinite iterations is commented out, for now.
+make it stop. The loop-control for infinite iterations is commented out, for now.
 
 B. Because it lacks a graphical display, the only way to observe the simulation while it
 runs is by using Firefox/Firebug and watching the console messages.
