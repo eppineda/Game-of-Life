@@ -18,6 +18,18 @@ var constants = { // adjacent cells can occur horizontally, veritcally or diagon
     "dead":"dead"
 }
 
+var PlayField = {
+    // these are pixels
+    "origin.x":-1,
+    "origin.y":-1,
+    "extent.x":-1, 
+    "extent.y":-1,
+    // these are logical
+    "max.x":-1,
+    "max.y":-1,
+    "cellSize":-1 // square
+}
+
 function nwOf(x, y) {
     return { "x":x - 1, "y":y + 1 }
 }

@@ -40,3 +40,15 @@ angular.module('gameoflife.services', [])
         } // nextGeneration
     } // return
 })
+.factory('Plotter', function() {
+    return {
+        rasterToLogical:function(x, y) {
+            var logicalCoords = { x:-1, y:-1 }
+            return logicalCoords
+        },
+        logicalToRaster:function(x, y) {
+            var rasterCoords = { x:-1, y:-1 }
+            return rasterCoords
+        }
+    }
+})

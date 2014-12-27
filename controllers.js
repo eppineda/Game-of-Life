@@ -4,14 +4,21 @@
  */
 
 angular.module('gameoflife.controllers', [])
-.controller('SimController', function($scope, Game) {
+.controller('SimController', function($scope, $window, Game) {
     $scope.grid = { 'width':3, 'height':3 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.resize = function() {
         if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 3 >
             $scope.grid.width || 3 > $scope.grid.height)
             return // too small
+        /*
+         * The physical extent can never exceed $window.innerWidth X $window.innerHeight.
+         * We need to dedicate the lower portion of the browser's client area to the
+         * play field.
+         */
         console.log($scope.grid.width, $scope.grid.height)
+        console.log('outer window size', $window.outerWidth, 'x', $window.outerHeight)
+        console.log('inner window size', $window.innerWidth, 'x', $window.innerHeight)
     }
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
@@ -45,5 +52,12 @@ angular.module('gameoflife.controllers', [])
             console.log('next generation', nextGen)
             currentGen = nextGen
         }
+    }
+    $scope.plotCells = function(cells) {
+        console.log(cells.length)
+    }
+    $scope.clearCoordinate = function(x, y) {
+    }
+    $scope.clearAll = function() {
     }
 });
