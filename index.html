@@ -12,7 +12,7 @@
 </head>
 <body ng-app="gameoflife" ng-controller="SimController">
     <h1>Game of Life</h1>
-    <fieldset>
+    <fieldset style="float:left; width:47%;">
         <legend>The Playfield</legend>
         <h2>grid dimensions</h2>
         <p>Specify the size of the grid the cells will be placed upon.</p>
@@ -23,7 +23,7 @@
         <input id="maxY" type="number" min="3" max="1000" ng-required
         ng-model="grid.height" ng-change="resize()"></input> 
     </fieldset>
-    <fieldset>
+    <fieldset style="float:right; width:47%;">
         <legend>Seed Generation</legend>
         <h2>cell coordinates</h2>
         <p>Enter the coordinates of each seed cell, or have them randomly placed.</p>
@@ -50,6 +50,7 @@
         </tbody>
         </table>
     </fieldset>
+    <div style="clear: both;">&nbsp;</div>
     <fieldset>
         <legend>Simulation</legend>
         <button id="start" ng-click="beginSimulation()">Begin simulation.</button>

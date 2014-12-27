@@ -1,13 +1,14 @@
 .alive {}
-body { color: #000000; background-color: #eeefff; }
+body { color:#000000; background-color:lightblue; }
 .cell {}
 .coordinate {}
 .dead {}
-input { text-align: right; }
+fieldset { background-color:#eeefff; }
+input { text-align:right; }
 table {
-    border: thin solid;
+    border:thin solid;
 }
-thead { background-color: #cccccc; }
+thead { background-color:#cccccc; }
 td, tr {
-    border: thin dotted;
+    border:thin dotted;
 }
