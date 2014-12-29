@@ -226,3 +226,25 @@ transitions.push(fewerThanTwo)
 transitions.push(twoOrThree)
 transitions.push(moreThanThree)
 transitions.push(exactlyThree)
+
+// miscellaneous
+
+/**
+ * Code by Sean McManus http://www.sean.co.uk/a/webdesign/javascriptdelay.shtm
+ */
+function getClockTime()
+{
+    var now    = new Date()
+    var hour   = now.getHours()
+    var minute = now.getMinutes()
+    var second = now.getSeconds()
+    var ap = "AM"
+    if (hour   > 11) { ap = "PM"              }
+    if (hour   > 12) { hour = hour - 12       }
+    if (hour   == 0) { hour = 12              }
+    if (hour   < 10) { hour   = "0" + hour    }
+    if (minute < 10) { minute = "0" + minute  }
+    if (second < 10) { second = "0" + second  }
+    var timeString = hour + ':' + minute + ':' + second + " " + ap
+    return timeString
+} // function getClockTime()

@@ -54,28 +54,9 @@
     <fieldset>
         <legend>Simulation</legend>
         <button id="start" ng-click="beginSimulation()">Begin simulation.</button>
+        <button id="stop"  ng-click="endSimulation()">End simulation.</button>
         <div id="svg">
         </div>
     </fieldset>
-    <!-- tests creation of the seed generation and identification of neighbors
-    <script type="text/javascript">
-    var maximumX = 5, maximumY = 5
-    var cells = seed(10, maximumX, maximumY)
-    
-    console.log('Testing seed generation only')
-
-    // apply each rule to each cell
-
-    var nextGeneration = []
-    for (var a = 0, b = cells.length; a < b; ++a) {
-        console.log('-----------', cells[a])
-        var cell = null
-
-        for (var x = 0, y = transitions.length; x < y; ++x) {
-            cell = transitions[x](cells[a])
-        }
-        nextGeneration.push(cell)
-    }
-    </script> -->
 </body>
 </html>

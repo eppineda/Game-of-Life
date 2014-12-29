@@ -7,6 +7,7 @@ angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope, $window, Game) {
     $scope.grid = { 'width':3, 'height':3 }
     $scope.seed = { 'howMany':0, 'coords':[] }
+    $scope.continue = true
     $scope.resize = function() {
         if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 3 >
             $scope.grid.width || 3 > $scope.grid.height)
@@ -26,9 +27,6 @@ angular.module('gameoflife.controllers', [])
             $scope.seed.coords[i] = { x:-1, y:-1 } // used to create cell
         console.log($scope.seed.coords.length)
     }
-    $scope.setCoordinate = function(index) {
-        console.log($scope.seed.coords)
-    }
     $scope.randomizeCoords = function() {
         console.log('------------randomly generated coordinates')
         for (var i = 0, j = $scope.seed.coords.length; i < j; ++i) {
@@ -42,16 +40,26 @@ angular.module('gameoflife.controllers', [])
         var seedCells = Game.seed($scope.grid.width, $scope.grid.height, $scope.seed.coords)
         var currentGen = seedCells
         var nextGen = null
-        var count = 0, limit = 5 // todo: temporary, until manual stop is implemented
-
-        // while (true) {
-        while (count++ < limit) {
-            console.log('current generation', currentGen)
-            // todo: render currentGen cells in browser
+        var moreCellsPlease = function() {
+            if (!$scope.continue) return
+            console.log('current generation', getClockTime(), currentGen)
             nextGen = Game.nextGeneration(currentGen)
             console.log('next generation', nextGen)
             currentGen = nextGen
+
+            var t = setTimeout(moreCellsPlease, 1000)
         }
+
+        moreCellsPlease()
+        // todo: render currentGen cells in browser
+    } // beginSimulation
+    $scope.endSimulation = function() {
+        console.log('ENDING SIMULATION')
+        $scope.continue = false
+    }
+/* I'm not sure that I want these here.
+    $scope.setCoordinate = function(index) { // todo: what was this for??
+        console.log($scope.seed.coords)
     }
     $scope.plotCells = function(cells) {
         console.log(cells.length)
@@ -60,4 +68,5 @@ angular.module('gameoflife.controllers', [])
     }
     $scope.clearAll = function() {
     }
+*/
 });

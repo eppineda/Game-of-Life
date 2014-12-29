@@ -62,8 +62,8 @@ D. Seeding from a flat file would likely make the game easier to use.
 
 VI. Known Defects/Shortcomings
 
-A. Limited to 5 cell generations. Because this game lacks manual control over when to 
-make it stop. The loop-control for infinite iterations is commented out, for now.
+<del>A. Limited to 5 cell generations. Because this game lacks manual control over when to 
+make it stop. The loop-control for infinite iterations is commented out, for now.</del>
 
 B. Because it lacks a graphical display, the only way to observe the simulation while it
 runs is by using Firefox/Firebug and watching the console messages.
