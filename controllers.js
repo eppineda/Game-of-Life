@@ -37,7 +37,7 @@ angular.module('gameoflife.controllers', [])
     }
     $scope.beginSimulation = function() {
         console.log('BEGINNING SIMULATION')
-        var seedCells = Game.seed($scope.grid.width, $scope.grid.height, $scope.seed.coords)
+        var seedCells = Game.seed($scope.seed.coords)
         var currentGen = seedCells
         var nextGen = null
         var moreCellsPlease = function() {

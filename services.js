@@ -6,10 +6,8 @@
 angular.module('gameoflife.services', [])
 .factory('Game', function() {
     return {
-        seed:function(gridWidth, gridHeight, coordinates) {
+        seed:function(coordinates) {
             var howMany = coordinates.length
-            var maxX = gridWidth
-            var maxY = gridHeight
             var newCells = []
             for (var i = 0, j = howMany; i < j; ++i) {
                 var c = null
