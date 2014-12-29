@@ -1,14 +1,14 @@
 .alive {}
 body { color:#000000; background-color:lightblue; }
 .cell {}
-.coordinate {}
+.coordinate { fill:lightgrey }
 .dead {}
 fieldset { background-color:#eeefff; }
 input { text-align:right; }
 table {
     border:thin solid;
 }
-thead { background-color:#cccccc; }
+thead { background-color:lightgrey; }
 td, tr {
     border:thin dotted;
 }
