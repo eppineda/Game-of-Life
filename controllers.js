@@ -20,6 +20,13 @@ angular.module('gameoflife.controllers', [])
         console.log($scope.grid.width, $scope.grid.height)
         console.log('outer window size', $window.outerWidth, 'x', $window.outerHeight)
         console.log('inner window size', $window.innerWidth, 'x', $window.innerHeight)
+        PlayField.extent.x = $window.innerWidth
+        PlayField.extent.y = $window.innerHeight
+        PlayField.max.x = $scope.grid.width
+        PlayField.max.y = $scope.grid.height
+        PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
+        console.log("grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
+                    PlayField.max.x, " X ", PlayField.max.y)
     }
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
