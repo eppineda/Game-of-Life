@@ -47,18 +47,28 @@ angular.module('gameoflife.controllers', [])
         var seedCells = Game.seed($scope.seed.coords)
         var currentGen = seedCells
         var nextGen = null
+        var emptyPlayfield = function() {
+            var svg = d3.select('svg')
+            var rect = svg.append('rect')
+
+            rect.attr('width',  PlayField.extent.x)
+                .attr('height', PlayField.extent.y)
+                .attr('fill',   'lightgrey')
+        } // emptyPlayfield
+        var plotCells = function(cells) {
+        }
         var moreCellsPlease = function() {
-            if (!$scope.continue) return
+            plotCells(currentGen)
+            if (!$scope.continue) return // someone clicked the stop button
             console.log('current generation', getClockTime(), currentGen)
             nextGen = Game.nextGeneration(currentGen)
             console.log('next generation', nextGen)
             currentGen = nextGen
-
-            var t = setTimeout(moreCellsPlease, 1000)
+            setTimeout(moreCellsPlease, 1000)
         }
 
+        emptyPlayfield()
         moreCellsPlease()
-        // todo: render currentGen cells in browser
     } // beginSimulation
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
