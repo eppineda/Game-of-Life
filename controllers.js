@@ -90,7 +90,13 @@ angular.module('gameoflife.controllers', [])
                 })
         } // plotCells
         var moreCellsPlease = function() {
-            plotCells(currentGen)
+            try {
+                plotCells(currentGen)
+            }
+            catch(CellException) {
+                console.error(CellException.message)
+                $scope.continue = false
+            }
             if (!$scope.continue) return // someone clicked the stop button
             console.log('current generation', getClockTime(), currentGen)
             nextGen = Game.nextGeneration(currentGen)
