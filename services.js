@@ -40,19 +40,11 @@ angular.module('gameoflife.services', [])
 })
 .factory('Plotter', function() {
     return {
-        rasterToLogical:function(x, y) {
-            var logicalCoords = { x:-1, y:-1 }
-
-            logicalCoords.x = Math.ceiling(x / PlayField.cellSize)
-            logicalCoords.y = Math.ceiling(y / PlayField.cellSize)
-            return logicalCoords
+        rasterToLogical:function(r) {
+            return Math.ceiling(r / PlayField.cellSize)
         },
-        logicalToRaster:function(x, y) {
-            var rasterCoords = { x:-1, y:-1 }
-
-            rasterCoords.x = x * PlayField.cellSize
-            rasterCoords.y = y * PlayField.cellSize
-            return rasterCoords
+        logicalToRaster:function(l) {
+            return l * PlayField.cellSize
         }
     }
 })

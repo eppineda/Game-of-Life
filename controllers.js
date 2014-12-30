@@ -4,7 +4,7 @@
  */
 
 angular.module('gameoflife.controllers', [])
-.controller('SimController', function($scope, $window, Game) {
+.controller('SimController', function($scope, $window, Game, Plotter) {
     $scope.grid = { 'width':3, 'height':3 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
@@ -51,17 +51,44 @@ angular.module('gameoflife.controllers', [])
         var seedCells = Game.seed($scope.seed.coords)
         var currentGen = seedCells
         var nextGen = null
+        var svg = d3.select('svg')
+        var rect = svg.append('rect')
         var emptyPlayfield = function() {
-            var svg = d3.select('svg')
-            var rect = svg.append('rect')
-
             svg.attr('height',  PlayField.extent.y)
             rect.attr('width',  PlayField.extent.x)
                 .attr('height', PlayField.extent.y)
                 .attr('class',  'coordinate')
         } // emptyPlayfield
         var plotCells = function(cells) {
-        }
+            console.log('Plotting cells', cells)
+            var circles = svg.selectAll('circle')
+            console.log(circles)
+
+            circles.data(cells)
+                .enter()
+                .append('circle')
+                .attr('cx', function(cell) {
+                    console.log('cx', cell)
+                    return Plotter.logicalToRaster(cell.x) + Math.floor(PlayField.cellSize / 2)
+                })
+                .attr('cy', function(cell) {
+                    console.log('cy', cell)
+                    return Plotter.logicalToRaster(cell.y) + Math.floor(PlayField.cellSize / 2)
+                })
+                .attr('r', function(cell) {
+                    console.log('r', cell)
+                    return Math.floor(PlayField.cellSize / 2)
+                })
+                .attr('class', function(cell) {
+                    console.log('class', cell)
+                    if (constants.alive == cell.state)
+                        return 'cell'
+                    else if (constants.dead == cell.state)
+                        return 'dead'
+                    else
+                        throw { name:'CellException', message:'Invalid cell state' }
+                })
+        } // plotCells
         var moreCellsPlease = function() {
             plotCells(currentGen)
             if (!$scope.continue) return // someone clicked the stop button
