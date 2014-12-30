@@ -96,7 +96,7 @@ angular.module('gameoflife.controllers', [])
             nextGen = Game.nextGeneration(currentGen)
             console.log('next generation', nextGen)
             currentGen = nextGen
-            setTimeout(moreCellsPlease, 1000)
+            setTimeout(moreCellsPlease, 5000)
         }
 
         emptyPlayfield()
