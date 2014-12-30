@@ -24,10 +24,14 @@ angular.module('gameoflife.controllers', [])
         PlayField.extent.y = $window.innerHeight
         PlayField.max.x = $scope.grid.width
         PlayField.max.y = $scope.grid.height
+        if (PlayField.extent.x < PlayField.extent.y)
+            PlayField.extent.x = PlayField.extent.y
+        else
+            PlayField.extent.y = PlayField.extent.x
         PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
-        console.log("grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
+        console.log("Grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
                     PlayField.max.x, " X ", PlayField.max.y)
-    }
+    } // resize
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
@@ -51,9 +55,10 @@ angular.module('gameoflife.controllers', [])
             var svg = d3.select('svg')
             var rect = svg.append('rect')
 
+            svg.attr('height',  PlayField.extent.y)
             rect.attr('width',  PlayField.extent.x)
                 .attr('height', PlayField.extent.y)
-                .attr('fill',   'lightgrey')
+                .attr('class',  'coordinate')
         } // emptyPlayfield
         var plotCells = function(cells) {
         }
