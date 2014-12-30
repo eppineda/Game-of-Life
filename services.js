@@ -42,10 +42,16 @@ angular.module('gameoflife.services', [])
     return {
         rasterToLogical:function(x, y) {
             var logicalCoords = { x:-1, y:-1 }
+
+            logicalCoords.x = Math.ceiling(x / PlayField.cellSize)
+            logicalCoords.y = Math.ceiling(y / PlayField.cellSize)
             return logicalCoords
         },
         logicalToRaster:function(x, y) {
             var rasterCoords = { x:-1, y:-1 }
+
+            rasterCoords.x = x * PlayField.cellSize
+            rasterCoords.y = y * PlayField.cellSize
             return rasterCoords
         }
     }
