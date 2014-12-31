@@ -102,7 +102,12 @@ angular.module('gameoflife.controllers', [])
             nextGen = Game.nextGeneration(currentGen)
             console.log('next generation', nextGen)
             currentGen = nextGen
-            setTimeout(moreCellsPlease, 1000)
+            setTimeout(function() {
+                var circles = svg.selectAll('circle')
+
+                circles.remove()
+                moreCellsPlease()
+            }, 1000)
         }
 
         emptyPlayfield()
