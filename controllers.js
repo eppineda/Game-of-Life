@@ -60,7 +60,7 @@ angular.module('gameoflife.controllers', [])
                 .attr('class',  'coordinate')
         } // emptyPlayfield
         var plotCells = function(cells) {
-            console.log('Plotting cells', cells)
+            console.log(getClockTime(), 'plotting ', cells.length, ' cells...')
             var circles = svg.selectAll('circle')
             console.log(circles)
 
@@ -80,9 +80,9 @@ angular.module('gameoflife.controllers', [])
                     return Math.floor(PlayField.cellSize / 2)
                 })
                 .attr('class', function(cell) {
-                    console.log('class', cell)
+                    console.log('setting fill class', cell.state)
                     if (constants.alive == cell.state)
-                        return 'cell'
+                        return 'alive'
                     else if (constants.dead == cell.state)
                         return 'dead'
                     else
@@ -102,7 +102,7 @@ angular.module('gameoflife.controllers', [])
             nextGen = Game.nextGeneration(currentGen)
             console.log('next generation', nextGen)
             currentGen = nextGen
-            setTimeout(moreCellsPlease, 5000)
+            setTimeout(moreCellsPlease, 1000)
         }
 
         emptyPlayfield()
