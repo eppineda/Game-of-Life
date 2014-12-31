@@ -120,6 +120,8 @@ Cell.prototype.addNeighbor = function(position, cell) {
         constants.sw != position &&
         constants.w  != position)
         throw { name:'CoordinateException', message:'\"' + position + '\" is not a valid direction.' }
+    if (constants.alive != cell.state && constants.dead != cell.state)
+        throw { name:'CellException', message:'invalid cell state' }
     this.neighbors[position] = cell
     cell.neighbors[oppositeOf(position)] = this // commutative relationship between cells
 } // addNeighbor
@@ -137,11 +139,18 @@ Cell.prototype.createNeighbor = function(position) {
     cell = new Cell(position.x, position.y)
     if (constants.alive != cell.state)
         throw { name:'CellException', message:'Dead cell created.' }
-    this.addNeighbor(position, cell)
+    try {
+        this.addNeighbor(position, cell)
+    }
+    catch(CellException) {
+        console.log(CellException.message)
+    }
     return cell
 } // createNeighbors
 
 Cell.prototype.findNeighbors = function(cells) {
+    if (1 > cells.length) return 0
+
     var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
                       constants.s, constants.sw, constants.w ]
 
@@ -199,25 +208,29 @@ var transitions = []
 var fewerThanTwo = function(cell) {
     if (constants.alive == cell.state && 2 > cell.neighbors.length)
         cell.state = constants.dead
-    console.log("fewerThanTwo", cell, cell.neighbors.length)
+    console.log("fewerThanTwo", cell, cell.neighbors.length, 
+        constants.alive == cell.state && 2 > cell.neighbors.length)
     return cell
 }
 var twoOrThree = function(cell) {
     if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
         cell.state = constants.alive
-    console.log("twoOrThree", cell, cell.neighbors.length)
+    console.log("twoOrThree", cell, cell.neighbors.length, 
+        constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
     return cell
 }
 var moreThanThree = function(cell) {
     if (constants.alive == cell.state && 3 < cell.neighbors.length)
         cell.state = constants.dead
-    console.log("moreThanThree", cell, cell.neighbors.length)
+    console.log("moreThanThree", cell, cell.neighbors.length,
+        constants.alive == cell.state && 3 < cell.neighbors.length)
     return cell
 }
 var exactlyThree = function(cell) {
     if (constants.dead == cell.state && 3 == cell.neighbors.length)
         cell.state = constants.alive
-    console.log("exactlyThree", cell, cell.neighbors.length)
+    console.log("exactlyThree", cell, cell.neighbors.length,
+        constants.dead == cell.state && 3 == cell.neighbors.length)
     return cell
 }
 
