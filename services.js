@@ -45,6 +45,24 @@ angular.module('gameoflife.services', [])
         },
         logicalToRaster:function(l) {
             return l * PlayField.cellSize
+        },
+        xScaler:function(cells) {
+            var max = d3.max(cells, function(cell) {
+                return cell.x
+            })
+            var f = d3.scale.linear().domain([0, max])
+                .range([0, PlayField.extent.x])
+
+            return f // a function that returns a scaled x-coordinate, given a domain value
+        },
+        yScaler:function(cells) {
+            var max = d3.max(cells, function(cell) {
+                return cell.y
+            })
+            var f = d3.scale.linear().domain([0, max])
+                .range([0, PlayField.extent.y])
+
+            return f // a function that returns a scaled y-coordinate, given a domain value
         }
     }
 })
