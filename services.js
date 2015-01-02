@@ -24,13 +24,15 @@ angular.module('gameoflife.services', [])
             console.log('----Transitioning current generation of cells')
             // apply each rule to each cell
 
-            var cells = currentGen
             var nextGen = []
-            for (var a = 0, b = cells.length; a < b; ++a) {
+            for (var a = 0, b = currentGen.length; a < b; ++a) {
                 var afterTransition = null
 
+                currentGen[a].findNeighbors(currentGen)
                 for (var x = 0, y = transitions.length; x < y; ++x) {
-                    afterTransition = transitions[x](cells[a])
+                    afterTransition = transitions[x](currentGen[a])
+                    if (afterTransition.state != currentGen[a].state)
+                        break // successful transition; stop
                 }
                 nextGen.push(afterTransition)
             }

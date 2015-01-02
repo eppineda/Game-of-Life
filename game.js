@@ -30,15 +30,15 @@ var PlayField = {
 }
 
 function nwOf(x, y) {
-    return { "x":x - 1, "y":y + 1 }
+    return { "x":x - 1, "y":y - 1 }
 }
 
 function nOf(x, y) {
-    return { "x":x, "y":y + 1 }
+    return { "x":x, "y":y - 1 }
 }
 
 function neOf(x, y) {
-    return { "x":x + 1, "y":y + 1 } 
+    return { "x":x + 1, "y":y - 1 } 
 }
 
 function eOf(x, y) {
@@ -46,15 +46,15 @@ function eOf(x, y) {
 }
 
 function seOf(x, y) {
-    return { "x":x + 1, "y":y - 1 }
+    return { "x":x + 1, "y":y + 1 }
 }
 
 function sOf(x, y) {
-    return { "x":x, "y":y - 1 }
+    return { "x":x, "y":y + 1 }
 }
 
 function swOf(x, y) {
-    return { "x":x - 1, "y":y - 1 }
+    return { "x":x - 1, "y":y + 1 }
 }
 
 function wOf(x, y) {
@@ -93,7 +93,7 @@ function oppositeOf(direction) {
 
 function findCell(cells, x, y) {
     for (var i = 0, j = cells.length; i < j; ++i) {
-        if (x == cells[i].x && y == cells[i].y)
+        if (x == cells[i].x && y == cells[i].y && constants.alive == cells[i].state)
             return cells[i]
     }
     return null
@@ -123,7 +123,7 @@ Cell.prototype.addNeighbor = function(position, cell) {
     if (constants.alive != cell.state && constants.dead != cell.state)
         throw { name:'CellException', message:'invalid cell state' }
     this.neighbors[position] = cell
-    cell.neighbors[oppositeOf(position)] = this // commutative relationship between cells
+    this.neighbors.length++
 } // addNeighbor
 
 Cell.prototype.createNeighbor = function(position) {
@@ -149,6 +149,7 @@ Cell.prototype.createNeighbor = function(position) {
 } // createNeighbors
 
 Cell.prototype.findNeighbors = function(cells) {
+    this.neighbors = []
     if (1 > cells.length) return 0
 
     var lookWhere = [ constants.nw, constants.n, constants.ne, constants.e, constants.se,
@@ -189,6 +190,7 @@ Cell.prototype.findNeighbors = function(cells) {
         if (null == found) continue
         try {
             this.addNeighbor(lookWhere[there], found)
+            found.addNeighbor(oppositeOf(lookWhere[there]), this)
         }
         catch(CoordinateException) {
             console.error(CoordinateException.message)
