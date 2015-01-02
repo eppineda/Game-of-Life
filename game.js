@@ -208,32 +208,48 @@ var Pattern = function() {
 
 var transitions = []
 var fewerThanTwo = function(cell) {
-    if (constants.alive == cell.state && 2 > cell.neighbors.length)
-        cell.state = constants.dead
-    console.log("fewerThanTwo", cell, cell.neighbors.length, 
-        constants.alive == cell.state && 2 > cell.neighbors.length)
-    return cell
+    var c = new Cell(cell.x, cell.y)
+    
+    c.state = cell.state
+    c.neighbors = cell.neighbors
+    if (constants.alive == c.state && 2 > c.neighbors.length)
+        c.state = constants.dead
+    console.log("fewerThanTwo", c, c.neighbors.length, 
+        constants.alive == c.state && 2 > c.neighbors.length)
+    return c
 }
 var twoOrThree = function(cell) {
-    if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
-        cell.state = constants.alive
-    console.log("twoOrThree", cell, cell.neighbors.length, 
-        constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
-    return cell
+    var c = new Cell(cell.x, cell.y)
+    
+    c.state = cell.state
+    c.neighbors = cell.neighbors
+    if (constants.alive == c.state && (2 == c.neighbors.length || 3 == c.neighbors.length))
+        c.state = constants.alive
+    console.log("twoOrThree", c, c.neighbors.length, 
+        constants.alive == c.state && (2 == c.neighbors.length || 3 == c.neighbors.length))
+    return c
 }
 var moreThanThree = function(cell) {
-    if (constants.alive == cell.state && 3 < cell.neighbors.length)
-        cell.state = constants.dead
-    console.log("moreThanThree", cell, cell.neighbors.length,
-        constants.alive == cell.state && 3 < cell.neighbors.length)
-    return cell
+    var c = new Cell(cell.x, cell.y)
+    
+    c.state = cell.state
+    c.neighbors = cell.neighbors
+    if (constants.alive == c.state && 3 < c.neighbors.length)
+        c.state = constants.dead
+    console.log("moreThanThree", c, c.neighbors.length,
+        constants.alive == c.state && 3 < c.neighbors.length)
+    return c
 }
 var exactlyThree = function(cell) {
-    if (constants.dead == cell.state && 3 == cell.neighbors.length)
-        cell.state = constants.alive
-    console.log("exactlyThree", cell, cell.neighbors.length,
-        constants.dead == cell.state && 3 == cell.neighbors.length)
-    return cell
+    var c = new Cell(cell.x, cell.y)
+    
+    c.state = cell.state
+    c.neighbors = cell.neighbors
+    if (constants.dead == c.state && 3 == c.neighbors.length)
+        c.state = constants.alive
+    console.log("exactlyThree", c, c.neighbors.length,
+        constants.dead == c.state && 3 == c.neighbors.length)
+    return c
 }
 
 transitions.push(fewerThanTwo)
