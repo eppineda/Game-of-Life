@@ -5,12 +5,12 @@
 
 angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope, $window, Game, Plotter) {
-    $scope.grid = { 'width':3, 'height':3 }
+    $scope.grid = { 'width':5, 'height':5 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
     $scope.resize = function() {
-        if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 3 >
-            $scope.grid.width || 3 > $scope.grid.height)
+        if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 5 >
+            $scope.grid.width || 5 > $scope.grid.height)
             return // too small
         /*
          * The physical extent can never exceed $window.innerWidth X $window.innerHeight.
