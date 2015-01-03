@@ -89,7 +89,7 @@ function oppositeOf(direction) {
 
 function findCell(cells, x, y) {
     for (var i = 0, j = cells.length; i < j; ++i) {
-        if (x == cells[i].x && y == cells[i].y && constants.alive == cells[i].state)
+        if (x == cells[i].x && y == cells[i].y)
             return cells[i]
     }
     return null
@@ -184,6 +184,7 @@ Cell.prototype.findNeighbors = function(cells) {
         var found = findCell(cells, whereAt.x, whereAt.y)
 
         if (null == found) continue
+        if (constants.dead == found.state) continue
         try {
             this.addNeighbor(lookWhere[there], found)
             found.addNeighbor(oppositeOf(lookWhere[there]), this)
