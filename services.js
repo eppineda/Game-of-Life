@@ -15,27 +15,46 @@ angular.module('gameoflife.services', [])
                 try { c = new Cell(coordinates[i].x, coordinates[i].y) }
                 catch (CellException) { console.error(CellException.message) }
 
-                c.findNeighbors(newCells)
+                var numFound = c.findNeighbors(newCells)
+
+                console.log(numFound, ' neighbors located.', c)
                 newCells[i] = c
             } // for: i
             return newCells
         }, // seed
-        nextGeneration:function(currentGen) {
+        nextGeneration:function(all) {
             console.log('----Transitioning current generation of cells')
-            // apply each rule to each cell
+            // apply each rule to each cell, dead or alive
 
-            var nextGen = []
-            for (var a = 0, b = currentGen.length; a < b; ++a) {
+            var nextGen = [] // births + deaths
+            var births = []
+            var deaths = []
+            var survivals = [] // no change, so we won't re-draw these
+            for (var a = 0, b = all.length; a < b; ++a) {
                 var afterTransition = null
 
-                currentGen[a].findNeighbors(currentGen)
+                all[a].findNeighbors(all)
                 for (var x = 0, y = transitions.length; x < y; ++x) {
-                    afterTransition = transitions[x](currentGen[a])
-                    if (afterTransition.state != currentGen[a].state)
-                        break // successful transition; stop
-                }
-                nextGen.push(afterTransition)
-            }
+                    afterTransition = transitions[x](all[a])
+                    if (afterTransition.state != all[a].state) {
+                        // state change
+                        if (constants.alive == afterTransition.state)
+                            births.push(afterTransition)
+                        else
+                            deaths.push(afterTransition)
+
+                        nextGen.push(afterTransition)
+                    }
+                    else {
+                        // no change in state
+                        if (constants.alive == afterTransition.state)
+                            survivals.push(afterTransition)
+                    }
+                } // for: x
+            } // for: a
+            console.log(survivals.length, ' survivals: ', survivals)
+            console.log(births.length, ' births: ', births)
+            console.log(deaths.length, ' deaths: ', deaths)
             return nextGen
         } // nextGeneration
     } // return
