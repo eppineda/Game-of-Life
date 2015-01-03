@@ -20,10 +20,6 @@ var constants = { // adjacent cells can occur horizontally, veritcally or diagon
 
 var PlayField = {
     // these are pixels
-/*  Do I need these?
-    "origin.x":-1,
-    "origin.y":-1,
-*/
     "extent":{ "x":-1, "y":-1 }, // the physical maximums in pixels
     "max":{ "x":-1, "y":-1 }, // the logical maximums in coorindate values
     "cellSize":-1 // square, so width=height
