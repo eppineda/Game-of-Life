@@ -5,33 +5,9 @@
 
 angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope, $window, Game, Plotter) {
-    $scope.grid = { 'width':5, 'height':5 }
+    $scope.grid = { 'width':10, 'height':10 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
-    $scope.resize = function() {
-        if ('undefined' == $scope.grid.width || 'undefined' == $scope.grid.height || 5 >
-            $scope.grid.width || 5 > $scope.grid.height)
-            return // too small
-        /*
-         * The physical extent can never exceed $window.innerWidth X $window.innerHeight.
-         * We need to dedicate the lower portion of the browser's client area to the
-         * play field.
-         */
-        console.log($scope.grid.width, $scope.grid.height)
-        console.log('outer window size', $window.outerWidth, 'x', $window.outerHeight)
-        console.log('inner window size', $window.innerWidth, 'x', $window.innerHeight)
-        PlayField.extent.x = $window.innerWidth
-        PlayField.extent.y = $window.innerHeight
-        PlayField.max.x = $scope.grid.width
-        PlayField.max.y = $scope.grid.height
-        if (PlayField.extent.x < PlayField.extent.y)
-            PlayField.extent.x = PlayField.extent.y
-        else
-            PlayField.extent.y = PlayField.extent.x
-        PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
-        console.log("Grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
-                    PlayField.max.x, " X ", PlayField.max.y)
-    } // resize
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
@@ -48,50 +24,100 @@ angular.module('gameoflife.controllers', [])
     }
     $scope.beginSimulation = function() {
         console.log('BEGINNING SIMULATION')
+        $scope.continue = true
+
+        // How many pixels are available?
+        PlayField.extent.x = $window.innerWidth
+        PlayField.extent.y = $window.innerHeight
+
+        // Make the grid square.
+        if (PlayField.extent.x > PlayField.extent.y)
+            PlayField.extent.x = PlayField.extent.y
+        else
+            PlayField.extent.y = PlayField.extent.x
+        PlayField.max.x = 10
+        PlayField.max.y = 10
+
+        // Determine size of each grid cell.
+        PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
+        console.log("Grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
+                    PlayField.max.x, " X ", PlayField.max.y)
+
+        // Capture all grid spaces. The bigger the grid, the longer this takes.
+        var currentGen = []
+
+        for (var w = 0, wMax = PlayField.max.x; w < wMax; ++w) {
+            for (var h = 0, hMax = PlayField.max.y; h < hMax; ++h) {
+                var c = new Cell(w, h)
+
+                c.state = constants.dead
+                currentGen.push(c)
+            }
+        }
+
+        // Seed the simulation with live cells.
         var seedCells = Game.seed($scope.seed.coords)
-        var currentGen = seedCells
-        var nextGen = null
+        
+        for (var s = 0, sMax = seedCells.length; s < sMax; ++s) {
+            var found = findCell(currentGen, seedCells[s].x, seedCells[s].y)
+
+            if (found) found.state = seedCells[s].state // make the cell alive
+        }
+        console.log('the grid: ', currentGen)
+
         var svg = d3.select('svg')
-        var rect = svg.append('rect')
+
+        svg.attr('width',   PlayField.extent.x)
+        svg.attr('height',  PlayField.extent.y)
+        svg.append('rect')
+        .attr('width',  PlayField.extent.x)
+        .attr('height', PlayField.extent.y)
+        .attr('class', 'grid')
         var emptyPlayfield = function() {
-            svg.attr('height',  PlayField.extent.y)
-            rect.attr('width',  PlayField.extent.x)
-                .attr('height', PlayField.extent.y)
-                .attr('class',  'coordinate')
+            // We only need to modify affected parts of the grid.
+            var alive = svg.selectAll('rect.alive')
+            var dead  = svg.selectAll('rect.dead')
+
+            alive.remove()
+            dead.remove()
         } // emptyPlayfield
         var plotCells = function(cells) {
             console.log(getClockTime(), 'plotting ', cells.length, ' cells...')
-            var circles = svg.selectAll('circle')
-            console.log(circles)
+            var rects = svg.selectAll('rect')
 
-            circles.data(cells)
-                .enter()
-                .append('circle')
-                .attr('cx', function(cell) {
-                    console.log('cx', cell)
-                    return Plotter.logicalToRaster(cell.x) + Math.floor(PlayField.cellSize / 2)
-                })
-                .attr('cy', function(cell) {
-                    console.log('cy', cell)
-                    return Plotter.logicalToRaster(cell.y) + Math.floor(PlayField.cellSize / 2)
-                })
-                .attr('r', function(cell) {
-                    console.log('r', cell)
-                    return Math.floor(PlayField.cellSize / 2)
-                })
-                .attr('class', function(cell) {
-                    console.log('setting fill class', cell.state)
-                    if (constants.alive == cell.state)
-                        return 'alive'
-                    else if (constants.dead == cell.state)
-                        return 'dead'
-                    else
-                        throw { name:'CellException', message:'Invalid cell state' }
-                })
+            rects.data(cells)
+            .enter()
+            .append('rect')
+            .attr('x', function(cell) {
+                console.log('x', cell)
+                return Plotter.logicalToRaster(cell.x)
+            })
+            .attr('y', function(cell) {
+                console.log('y', cell)
+                return Plotter.logicalToRaster(cell.y)
+            })
+            .attr('width', function(cell) {
+                console.log('width', cell)
+                return PlayField.cellSize
+            })
+            .attr('height', function(cell) {
+                console.log('height', cell)
+                return PlayField.cellSize
+            })
+            .attr('class', function(cell) {
+                console.log('setting fill class', cell.state)
+                if (constants.alive == cell.state)
+                    return 'alive'
+                else if (constants.dead == cell.state)
+                    return 'dead'
+                else
+                    throw { name:'CellException', message:'Invalid cell state' }
+            })
         } // plotCells
         var moreCellsPlease = function() {
             try {
-                plotCells(currentGen)
+                plotCells(seedCells)
+                $scope.continue = false
             }
             catch(CellException) {
                 console.error(CellException.message)
@@ -99,19 +125,21 @@ angular.module('gameoflife.controllers', [])
             }
             if (!$scope.continue) return // someone clicked the stop button
             console.log('current generation', getClockTime(), currentGen)
-            nextGen = Game.nextGeneration(currentGen)
+
+            var nextGen = Game.nextGeneration(currentGen)
+
             console.log('next generation', nextGen)
             currentGen = nextGen
             setTimeout(function() {
-                var circles = svg.selectAll('circle')
+                var rects = svg.selectAll('rect')
 
-                circles.remove()
-                moreCellsPlease()
+                rects.remove()
+                moreCellsPlease(currentGen)
             }, 1000)
-        }
+        } // moreCellsPlease
 
         emptyPlayfield()
-        moreCellsPlease()
+        // moreCellsPlease()
     } // beginSimulation
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
