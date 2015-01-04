@@ -57,6 +57,7 @@ angular.module('gameoflife.controllers', [])
 
         // Seed the simulation with live cells.
         var seedCells = Game.seed($scope.seed.coords)
+        var svg = d3.select('svg')
         
         for (var s = 0, sMax = seedCells.length; s < sMax; ++s) {
             var found = findCell(currentGen, seedCells[s].x, seedCells[s].y)
@@ -64,22 +65,11 @@ angular.module('gameoflife.controllers', [])
             if (found) found.state = seedCells[s].state // make the cell alive
         }
         console.log('the grid: ', currentGen)
-
-        var svg = d3.select('svg')
-
         svg.attr('width',   PlayField.extent.x)
         svg.attr('height',  PlayField.extent.y)
-        svg.append('rect')
-        .attr('width',  PlayField.extent.x)
-        .attr('height', PlayField.extent.y)
-        .attr('class', 'grid')
-        var emptyPlayfield = function() {
-            // We only need to modify affected parts of the grid.
-            var alive = svg.selectAll('rect.alive')
-            var dead  = svg.selectAll('rect.dead')
 
-            alive.remove()
-            dead.remove()
+        var emptyPlayfield = function() {
+            svg.selectAll('rect.alive').remove()
         } // emptyPlayfield
         var plotCells = function(cells) {
             console.log(getClockTime(), 'plotting ', cells.length, ' cells...')
@@ -116,8 +106,7 @@ angular.module('gameoflife.controllers', [])
         } // plotCells
         var moreCellsPlease = function() {
             try {
-                plotCells(seedCells)
-                $scope.continue = false
+                plotCells(currentGen)
             }
             catch(CellException) {
                 console.error(CellException.message)
@@ -131,15 +120,13 @@ angular.module('gameoflife.controllers', [])
             console.log('next generation', nextGen)
             currentGen = nextGen
             setTimeout(function() {
-                var rects = svg.selectAll('rect')
-
-                rects.remove()
-                moreCellsPlease(currentGen)
+                svg.selectAll('rect.alive').remove()
+                moreCellsPlease()
             }, 1000)
         } // moreCellsPlease
 
         emptyPlayfield()
-        // moreCellsPlease()
+        moreCellsPlease()
     } // beginSimulation
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
