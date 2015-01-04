@@ -104,7 +104,7 @@ angular.module('gameoflife.controllers', [])
                     throw { name:'CellException', message:'Invalid cell state' }
             })
         } // plotCells
-        var moreCellsPlease = function() {
+        var moreCellsPlease = function(currentGen) {
             try {
                 plotCells(currentGen)
             }
@@ -120,13 +120,12 @@ angular.module('gameoflife.controllers', [])
             console.log('next generation', nextGen)
             currentGen = nextGen
             setTimeout(function() {
-                svg.selectAll('rect.alive').remove()
-                moreCellsPlease()
+                moreCellsPlease(currentGen)
             }, 1000)
         } // moreCellsPlease
 
         emptyPlayfield()
-        moreCellsPlease()
+        moreCellsPlease(currentGen)
     } // beginSimulation
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
