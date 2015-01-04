@@ -16,7 +16,7 @@ function seed(howMany, maxX, maxY) {
         var c = new Cell(Math.floor(Math.random() * (maxX)),
             Math.floor(Math.random() * (maxY))) // todo: chance of duplicate cell
 
-        c.findNeighbors(newCells)
+        c.findLiveNeighbors(newCells)
         newCells[i] = c
     } // for: i
     return newCells
