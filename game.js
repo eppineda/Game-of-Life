@@ -20,10 +20,6 @@ var constants = { // adjacent cells can occur horizontally, veritcally or diagon
 
 var PlayField = {
     // these are pixels
-/*  Do I need these?
-    "origin.x":-1,
-    "origin.y":-1,
-*/
     "extent":{ "x":-1, "y":-1 }, // the physical maximums in pixels
     "max":{ "x":-1, "y":-1 }, // the logical maximums in coorindate values
     "cellSize":-1 // square, so width=height
@@ -93,7 +89,7 @@ function oppositeOf(direction) {
 
 function findCell(cells, x, y) {
     for (var i = 0, j = cells.length; i < j; ++i) {
-        if (x == cells[i].x && y == cells[i].y && constants.alive == cells[i].state)
+        if (x == cells[i].x && y == cells[i].y)
             return cells[i]
     }
     return null
@@ -108,6 +104,7 @@ var Cell = function(x, y) {
     this.y = y
     this.state = constants.alive
     this.neighbors = [] // no neighboring cells by default
+    this.neighbors.length = 0
 }
 
 Cell.prototype.addNeighbor = function(position, cell) {
@@ -148,7 +145,7 @@ Cell.prototype.createNeighbor = function(position) {
     return cell
 } // createNeighbors
 
-Cell.prototype.findNeighbors = function(cells) {
+Cell.prototype.findLiveNeighbors = function(cells) {
     this.neighbors = []
     if (1 > cells.length) return 0
 
@@ -188,9 +185,11 @@ Cell.prototype.findNeighbors = function(cells) {
         var found = findCell(cells, whereAt.x, whereAt.y)
 
         if (null == found) continue
+        if (constants.dead == found.state) continue
         try {
             this.addNeighbor(lookWhere[there], found)
-            found.addNeighbor(oppositeOf(lookWhere[there]), this)
+            if (constants.alive == this.state)
+                found.addNeighbor(oppositeOf(lookWhere[there]), this)
         }
         catch(CoordinateException) {
             console.error(CoordinateException.message)
@@ -198,7 +197,7 @@ Cell.prototype.findNeighbors = function(cells) {
         console.log('neighbors', this, '<-->', found)
     } // for: there
     return this.neighbors.length
-} // findNeighbors
+} // findLiveNeighbors
 
 var Pattern = function() {
     this.cells = [] // none in this pattern by default
@@ -208,48 +207,32 @@ var Pattern = function() {
 
 var transitions = []
 var fewerThanTwo = function(cell) {
-    var c = new Cell(cell.x, cell.y)
-    
-    c.state = cell.state
-    c.neighbors = cell.neighbors
-    if (constants.alive == c.state && 2 > c.neighbors.length)
-        c.state = constants.dead
-    console.log("fewerThanTwo", c, c.neighbors.length, 
-        constants.alive == c.state && 2 > c.neighbors.length)
-    return c
+    if (constants.alive == cell.state && 2 > cell.neighbors.length) {
+        cell.state = constants.dead
+        return cell
+    }
+    return null
 }
 var twoOrThree = function(cell) {
-    var c = new Cell(cell.x, cell.y)
-    
-    c.state = cell.state
-    c.neighbors = cell.neighbors
-    if (constants.alive == c.state && (2 == c.neighbors.length || 3 == c.neighbors.length))
-        c.state = constants.alive
-    console.log("twoOrThree", c, c.neighbors.length, 
-        constants.alive == c.state && (2 == c.neighbors.length || 3 == c.neighbors.length))
-    return c
+    if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length)) {
+        cell.state = constants.alive
+        return cell
+    }
+    return null
 }
 var moreThanThree = function(cell) {
-    var c = new Cell(cell.x, cell.y)
-    
-    c.state = cell.state
-    c.neighbors = cell.neighbors
-    if (constants.alive == c.state && 3 < c.neighbors.length)
-        c.state = constants.dead
-    console.log("moreThanThree", c, c.neighbors.length,
-        constants.alive == c.state && 3 < c.neighbors.length)
-    return c
+    if (constants.alive == cell.state && 3 < cell.neighbors.length) {
+        cell.state = constants.dead
+        return cell
+    }
+    return null
 }
 var exactlyThree = function(cell) {
-    var c = new Cell(cell.x, cell.y)
-    
-    c.state = cell.state
-    c.neighbors = cell.neighbors
-    if (constants.dead == c.state && 3 == c.neighbors.length)
-        c.state = constants.alive
-    console.log("exactlyThree", c, c.neighbors.length,
-        constants.dead == c.state && 3 == c.neighbors.length)
-    return c
+    if (constants.dead == cell.state && 3 == cell.neighbors.length) {
+        cell.state = constants.alive
+        return cell
+    }
+    return null
 }
 
 transitions.push(fewerThanTwo)

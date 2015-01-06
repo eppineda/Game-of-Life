@@ -15,27 +15,29 @@ angular.module('gameoflife.services', [])
                 try { c = new Cell(coordinates[i].x, coordinates[i].y) }
                 catch (CellException) { console.error(CellException.message) }
 
-                c.findNeighbors(newCells)
+                var numFound = c.findLiveNeighbors(newCells)
+
+                console.log(numFound, ' neighbors located.', c)
                 newCells[i] = c
             } // for: i
             return newCells
         }, // seed
         nextGeneration:function(currentGen) {
             console.log('----Transitioning current generation of cells')
-            // apply each rule to each cell
+            // apply each rule to each cell, dead or alive
 
-            var nextGen = []
-            for (var a = 0, b = currentGen.length; a < b; ++a) {
-                var afterTransition = null
+            var nextGen = [] // births + deaths
+            for (var a = 0, aMax = currentGen.length; a < aMax; ++a) {
+                currentGen[a].findLiveNeighbors(currentGen)
+                for (var t = 0, tMax = transitions.length; t < tMax; ++t) {
+                    var afterTransition = transitions[t](currentGen[a])
 
-                currentGen[a].findNeighbors(currentGen)
-                for (var x = 0, y = transitions.length; x < y; ++x) {
-                    afterTransition = transitions[x](currentGen[a])
-                    if (afterTransition.state != currentGen[a].state)
-                        break // successful transition; stop
-                }
-                nextGen.push(afterTransition)
-            }
+                    if (null != afterTransition) {
+                        nextGen.push(afterTransition)
+                        break // state change, continue to next cell
+                    }
+                } // for: t
+            } // for: a
             return nextGen
         } // nextGeneration
     } // return

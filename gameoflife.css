@@ -1,7 +1,6 @@
 .alive { fill:lightgreen; }
 body { color:#000000; background-color:lightblue; }
-.coordinate { fill:lightgrey; }
-.dead { fill:black; }
+.dead { fill:lightgrey; }
 fieldset { background-color:#eeefff; }
 input { text-align:right; }
 table {
