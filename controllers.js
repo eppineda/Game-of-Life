@@ -44,14 +44,14 @@ angular.module('gameoflife.controllers', [])
                     PlayField.max.x, " X ", PlayField.max.y)
 
         // Capture all grid spaces. The bigger the grid, the longer this takes.
-        var currentGen = []
+        var all = []
 
         for (var w = 0, wMax = PlayField.max.x; w < wMax; ++w) {
             for (var h = 0, hMax = PlayField.max.y; h < hMax; ++h) {
                 var c = new Cell(w, h)
 
                 c.state = constants.dead
-                currentGen.push(c)
+                all.push(c)
             }
         }
 
@@ -60,17 +60,13 @@ angular.module('gameoflife.controllers', [])
         var svg = d3.select('svg')
         
         for (var s = 0, sMax = seedCells.length; s < sMax; ++s) {
-            var found = findCell(currentGen, seedCells[s].x, seedCells[s].y)
+            var found = findCell(all, seedCells[s].x, seedCells[s].y)
 
             if (found) found.state = seedCells[s].state // make the cell alive
         }
-        console.log('the grid: ', currentGen)
         svg.attr('width',   PlayField.extent.x)
         svg.attr('height',  PlayField.extent.y)
 
-        var emptyPlayfield = function() {
-            svg.selectAll('rect.alive').remove()
-        } // emptyPlayfield
         var plotCells = function(cells) {
             console.log(getClockTime(), 'plotting ', cells.length, ' cells...')
             var rects = svg.selectAll('rect')
@@ -79,23 +75,18 @@ angular.module('gameoflife.controllers', [])
             .enter()
             .append('rect')
             .attr('x', function(cell) {
-                console.log('x', cell)
                 return Plotter.logicalToRaster(cell.x)
             })
             .attr('y', function(cell) {
-                console.log('y', cell)
                 return Plotter.logicalToRaster(cell.y)
             })
             .attr('width', function(cell) {
-                console.log('width', cell)
                 return PlayField.cellSize
             })
             .attr('height', function(cell) {
-                console.log('height', cell)
                 return PlayField.cellSize
             })
             .attr('class', function(cell) {
-                console.log('setting fill class', cell.state)
                 if (constants.alive == cell.state)
                     return 'alive'
                 else if (constants.dead == cell.state)
@@ -104,28 +95,40 @@ angular.module('gameoflife.controllers', [])
                     throw { name:'CellException', message:'Invalid cell state' }
             })
         } // plotCells
-        var moreCellsPlease = function(currentGen) {
-            try {
-                plotCells(currentGen)
-            }
-            catch(CellException) {
-                console.error(CellException.message)
-                $scope.continue = false
-            }
+        var updateCells = function() {
             if (!$scope.continue) return // someone clicked the stop button
-            console.log('current generation', getClockTime(), currentGen)
 
-            var nextGen = Game.nextGeneration(currentGen)
-
-            console.log('next generation', nextGen)
-            currentGen = nextGen
+            var updates = Game.nextGeneration(all)
+          
+            if (1 > updates.length) {
+                $scope.continue = false
+                return
+            }
+            for (var u in updates) {
+                svg.selectAll('rect')
+                .filter(function(cell) {
+                    return (updates[u].x == cell.x && updates[u].y == cell.y)
+                })
+                .attr('class', function(cell) {
+                    if (constants.alive == cell.state) return 'alive'
+                    if (constants.dead  == cell.state) return 'dead'
+                    throw { name:'CellException', message:'Invalid cell state' }
+                })
+            }
+           
             setTimeout(function() {
-                moreCellsPlease(currentGen)
+                updateCells()
             }, 1000)
-        } // moreCellsPlease
+        } // updateCells
 
-        emptyPlayfield()
-        moreCellsPlease(currentGen)
+        try {
+            plotCells(all)
+            updateCells()
+        }
+        catch(CellException) {
+            console.error(CellException.message)
+            $scope.continue = false
+        }
     } // beginSimulation
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
