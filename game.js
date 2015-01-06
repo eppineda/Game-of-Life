@@ -104,6 +104,7 @@ var Cell = function(x, y) {
     this.y = y
     this.state = constants.alive
     this.neighbors = [] // no neighboring cells by default
+    this.neighbors.length = 0
 }
 
 Cell.prototype.addNeighbor = function(position, cell) {
@@ -144,7 +145,7 @@ Cell.prototype.createNeighbor = function(position) {
     return cell
 } // createNeighbors
 
-Cell.prototype.findNeighbors = function(cells) {
+Cell.prototype.findLiveNeighbors = function(cells) {
     this.neighbors = []
     if (1 > cells.length) return 0
 
@@ -187,7 +188,8 @@ Cell.prototype.findNeighbors = function(cells) {
         if (constants.dead == found.state) continue
         try {
             this.addNeighbor(lookWhere[there], found)
-            found.addNeighbor(oppositeOf(lookWhere[there]), this)
+            if (constants.alive == this.state)
+                found.addNeighbor(oppositeOf(lookWhere[there]), this)
         }
         catch(CoordinateException) {
             console.error(CoordinateException.message)
@@ -195,7 +197,7 @@ Cell.prototype.findNeighbors = function(cells) {
         console.log('neighbors', this, '<-->', found)
     } // for: there
     return this.neighbors.length
-} // findNeighbors
+} // findLiveNeighbors
 
 var Pattern = function() {
     this.cells = [] // none in this pattern by default
