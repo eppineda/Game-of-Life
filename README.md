@@ -65,8 +65,8 @@ VI. Known Defects/Shortcomings
 <del>A. Limited to 5 cell generations. Because this game lacks manual control over when to 
 make it stop. The loop-control for infinite iterations is commented out, for now.</del>
 
-B. Because it lacks a graphical display, the only way to observe the simulation while it
-runs is by using Firefox/Firebug and watching the console messages.
+<del>B. Because it lacks a graphical display, the only way to observe the simulation while it
+runs is by using Firefox/Firebug and watching the console messages.</del>
 
 C. General lack of robust validation of user input. In general, operate the application's
 UI controls top-to-bottom. Skipping around essentially bypasses important configuration and
@@ -75,6 +75,6 @@ will probably result in non-sensical behavior.
 D. Did not test thoroughly transition rules for cases where a cell was supposed to die
 or be rejuvenated.
 
-E. The game really should stop when all cells are dead.
+<del>E. The game really should stop when all cells are dead.</del>
 
 F. Duplicate cells are allowed/possible.
