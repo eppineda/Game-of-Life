@@ -8,6 +8,7 @@ angular.module('gameoflife.controllers', [])
     $scope.grid = { 'width':10, 'height':10 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
+    $scope.showSeed = true
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
@@ -25,6 +26,7 @@ angular.module('gameoflife.controllers', [])
     $scope.beginSimulation = function() {
         console.log('BEGINNING SIMULATION')
         $scope.continue = true
+        $scope.showSeed = false
 
         // How many pixels are available?
         PlayField.extent.x = $window.innerWidth
@@ -133,6 +135,7 @@ angular.module('gameoflife.controllers', [])
     $scope.endSimulation = function() {
         console.log('ENDING SIMULATION')
         $scope.continue = false
+        $scope.showSeed = true
     }
 /* I'm not sure that I want these here.
     $scope.setCoordinate = function(index) { // todo: what was this for??
