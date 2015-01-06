@@ -13,14 +13,11 @@ angular.module('gameoflife.controllers', [])
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
             $scope.seed.coords[i] = { x:-1, y:-1 } // used to create cell
-        console.log($scope.seed.coords.length)
     }
     $scope.randomizeCoords = function() {
-        console.log('------------randomly generated coordinates')
         for (var i = 0, j = $scope.seed.coords.length; i < j; ++i) {
             $scope.seed.coords[i].x = Math.floor(Math.random() * ($scope.grid.width))
             $scope.seed.coords[i].y = Math.floor(Math.random() * ($scope.grid.height))
-            console.log($scope.seed.coords[i])
         }
     }
     $scope.beginSimulation = function() {
@@ -137,16 +134,4 @@ angular.module('gameoflife.controllers', [])
         $scope.continue = false
         $scope.showSeed = true
     }
-/* I'm not sure that I want these here.
-    $scope.setCoordinate = function(index) { // todo: what was this for??
-        console.log($scope.seed.coords)
-    }
-    $scope.plotCells = function(cells) {
-        console.log(cells.length)
-    }
-    $scope.clearCoordinate = function(x, y) {
-    }
-    $scope.clearAll = function() {
-    }
-*/
 });
