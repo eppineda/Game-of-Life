@@ -114,15 +114,13 @@ angular.module('gameoflife.controllers', [])
                     throw { name:'CellException', message:'Invalid cell state' }
                 })
             }
-           
-            setTimeout(function() {
-                updateCells()
-            }, 1000)
         } // updateCells
 
         try {
             plotCells(all)
-            updateCells()
+            setTimeout(function() {
+                updateCells()
+            }, 1000)
         }
         catch(CellException) {
             console.error(CellException.message)
