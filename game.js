@@ -207,32 +207,32 @@ var Pattern = function() {
 
 var transitions = []
 var fewerThanTwo = function(cell) {
-    if (constants.alive == cell.state && 2 > cell.neighbors.length)
+    if (constants.alive == cell.state && 2 > cell.neighbors.length) {
         cell.state = constants.dead
-    console.log("fewerThanTwo", cell, cell.neighbors.length, 
-        constants.alive == cell.state && 2 > cell.neighbors.length)
-    return cell
+        return cell
+    }
+    return null
 }
 var twoOrThree = function(cell) {
-    if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
+    if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length)) {
         cell.state = constants.alive
-    console.log("twoOrThree", cell, cell.neighbors.length, 
-        constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length))
-    return cell
+        return cell
+    }
+    return null
 }
 var moreThanThree = function(cell) {
-    if (constants.alive == cell.state && 3 < cell.neighbors.length)
+    if (constants.alive == cell.state && 3 < cell.neighbors.length) {
         cell.state = constants.dead
-    console.log("moreThanThree", cell, cell.neighbors.length,
-        constants.alive == cell.state && 3 < cell.neighbors.length)
-    return cell
+        return cell
+    }
+    return null
 }
 var exactlyThree = function(cell) {
-    if (constants.dead == cell.state && 3 == cell.neighbors.length)
+    if (constants.dead == cell.state && 3 == cell.neighbors.length) {
         cell.state = constants.alive
-    console.log("exactlyThree", cell, cell.neighbors.length,
-        constants.dead == cell.state && 3 == cell.neighbors.length)
-    return cell
+        return cell
+    }
+    return null
 }
 
 transitions.push(fewerThanTwo)
