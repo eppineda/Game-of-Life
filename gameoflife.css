@@ -1,4 +1,4 @@
-.alive { fill:lightgreen; }
+.alive { fill:black; }
 body { color:#000000; background-color:lightblue; }
 .dead { fill:lightgrey; }
 fieldset { background-color:#eeefff; }
