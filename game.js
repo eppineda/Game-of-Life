@@ -119,8 +119,9 @@ Cell.prototype.addNeighbor = function(position, cell) {
         throw { name:'CoordinateException', message:'\"' + position + '\" is not a valid direction.' }
     if (constants.alive != cell.state && constants.dead != cell.state)
         throw { name:'CellException', message:'invalid cell state' }
+    if ('undefined' == typeof this.neighbors[position])
+        this.neighbors.length++
     this.neighbors[position] = cell
-    this.neighbors.length++
 } // addNeighbor
 
 Cell.prototype.createNeighbor = function(position) {
