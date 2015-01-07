@@ -22,24 +22,30 @@ angular.module('gameoflife.services', [])
         }, // seed
         nextGeneration:function(all) {
             console.log('----Transitioning current generation of cells')
-            // apply each rule to each cell, dead or alive
 
             var nextGen = [] // births + deaths
             var numFound = -1
+
+// each cell (dead or alive) gets a list of its live neighbors.
 
             for (var a = 0, aMax = all.length; a < aMax; ++a) {
                 try { numFound = all[a].findLiveNeighbors(all) }
                 catch(CellException) { console.error(CellException.message) }
                 console.log('(' + all[a].x + ',' + all[a].y + ') has ', numFound, ' neighbors.')
+            } // for: a
+
+// obtain a list of survivals, births and deaths.
+
+            for (var a2 = 0, aMax = all.length; a2 < aMax; ++a2) {
                 for (var t = 0, tMax = transitions.length; t < tMax; ++t) {
-                    var afterTransition = transitions[t](all[a])
+                    var afterTransition = transitions[t](all[a2])
 
                     if (null != afterTransition) {
                         nextGen.push(afterTransition)
                         break // state change, continue to next cell
                     }
                 } // for: t
-            } // for: a
+            } // for: a2
             return nextGen
         } // nextGeneration
     } // return
