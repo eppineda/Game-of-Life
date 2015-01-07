@@ -5,6 +5,8 @@
 
 angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope, $window, Game, Plotter) {
+    var svg = null
+
     $scope.grid = { 'width':10, 'height':10 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
@@ -61,7 +63,7 @@ angular.module('gameoflife.controllers', [])
 // Seed the simulation with live cells.
 
         var seedCells = Game.seed($scope.seed.coords)
-        var svg = d3.select('svg')
+        svg = d3.select('svg')
         
         for (var s = 0, sMax = seedCells.length; s < sMax; ++s) {
             var found = findCell(all, seedCells[s].x, seedCells[s].y)
@@ -139,5 +141,6 @@ angular.module('gameoflife.controllers', [])
         console.log('ENDING SIMULATION')
         $scope.continue = false
         $scope.showSeed = true
+        svg.selectAll('rect').attr('class', 'dead')
     }
 });
