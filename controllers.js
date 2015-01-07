@@ -25,11 +25,13 @@ angular.module('gameoflife.controllers', [])
         $scope.continue = true
         $scope.showSeed = false
 
-        // How many pixels are available?
+// How many pixels are available?
+
         PlayField.extent.x = $window.innerWidth
         PlayField.extent.y = $window.innerHeight
 
-        // Make the grid square.
+// Make the grid square.
+
         if (PlayField.extent.x > PlayField.extent.y)
             PlayField.extent.x = PlayField.extent.y
         else
@@ -37,12 +39,14 @@ angular.module('gameoflife.controllers', [])
         PlayField.max.x = 10
         PlayField.max.y = 10
 
-        // Determine size of each grid cell.
+// Determine size of each grid cell.
+
         PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
         console.log("Grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
                     PlayField.max.x, " X ", PlayField.max.y)
 
-        // Capture all grid spaces. The bigger the grid, the longer this takes.
+// Capture all grid spaces. The bigger the grid, the longer this takes.
+
         var all = []
 
         for (var w = 0, wMax = PlayField.max.x; w < wMax; ++w) {
@@ -54,7 +58,8 @@ angular.module('gameoflife.controllers', [])
             }
         }
 
-        // Seed the simulation with live cells.
+// Seed the simulation with live cells.
+
         var seedCells = Game.seed($scope.seed.coords)
         var svg = d3.select('svg')
         

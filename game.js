@@ -211,28 +211,28 @@ var Pattern = function() {
 var transitions = []
 var fewerThanTwo = function(cell) {
     if (constants.alive == cell.state && 2 > cell.neighbors.length) {
-        cell.state = constants.dead
+        cell.state = constants.dead // dies by starvation
         return cell
     }
     return null
 }
 var twoOrThree = function(cell) {
     if (constants.alive == cell.state && (2 == cell.neighbors.length || 3 == cell.neighbors.length)) {
-        cell.state = constants.alive
+        cell.state = constants.alive // survives to next generation
         return cell
     }
     return null
 }
 var moreThanThree = function(cell) {
     if (constants.alive == cell.state && 3 < cell.neighbors.length) {
-        cell.state = constants.dead
+        cell.state = constants.dead // dies by overcrowding
         return cell
     }
     return null
 }
 var exactlyThree = function(cell) {
     if (constants.dead == cell.state && 3 == cell.neighbors.length) {
-        cell.state = constants.alive
+        cell.state = constants.alive // halleluiah! born again
         return cell
     }
     return null
