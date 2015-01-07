@@ -45,16 +45,16 @@ and services (controllers.js and services,js, respectively) as necessary.
 
 V. Future Design Considerations
 
-A. Whether or not to allow off-grid (i.e. off-screen) cellular creation
+A. Whether or not to allow off-grid (i.e. off-screen) cellular creation [ no. ]
 
-B. Graphical Display
+B. Graphical Display [ done. ]
 
-I'm not yet skilled in animation with AngularJS. The current design uses a logical coordinate
+The current design uses a logical coordinate
 system, instead of a pixel-based system based on browser resolution. That is to say, for example,
 coordinate(50, 35) is not pixel-coordinate(50, 35).
 
 I also like the grid display in use by gitHub for a user's Contribution graph. That would 
-do very nicely.
+do very nicely. [ done, with d3.js, as in github. ]
 
 C. In a future version, real-time recognition of cellular patterns would probably be a lot fun.
 
@@ -72,8 +72,8 @@ C. General lack of robust validation of user input. In general, operate the appl
 UI controls top-to-bottom. Skipping around essentially bypasses important configuration and
 will probably result in non-sensical behavior.
 
-D. Did not test thoroughly transition rules for cases where a cell was supposed to die
-or be rejuvenated.
+<del>D. Did not test thoroughly transition rules for cases where a cell was supposed to die
+or be rejuvenated.</del>
 
 <del>E. The game really should stop when all cells are dead.</del>
 
