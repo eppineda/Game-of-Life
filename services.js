@@ -31,7 +31,6 @@ angular.module('gameoflife.services', [])
             for (var a = 0, aMax = all.length; a < aMax; ++a) {
                 try { numFound = all[a].findLiveNeighbors(all) }
                 catch(CellException) { console.error(CellException.message) }
-                console.log('(' + all[a].x + ',' + all[a].y + ') has ', numFound, ' neighbors.')
             } // for: a
 
 // obtain a list of survivals, births and deaths.
