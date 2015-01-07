@@ -196,6 +196,8 @@ Cell.prototype.findLiveNeighbors = function(cells) {
         }
         console.log('neighbors', this, '<-->', found)
     } // for: there
+    if (8 < this.neighbors.length)
+        throw { name:'CellException', message:'too many neighbors' }
     return this.neighbors.length
 } // findLiveNeighbors
 
