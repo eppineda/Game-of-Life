@@ -141,7 +141,7 @@ Cell.prototype.createNeighbor = function(position) {
         this.addNeighbor(position, cell)
     }
     catch(CellException) {
-        console.log(CellException.message)
+        console.error(CellException.message)
     }
     return cell
 } // createNeighbors
@@ -195,7 +195,6 @@ Cell.prototype.findLiveNeighbors = function(cells) {
         catch(CoordinateException) {
             console.error(CoordinateException.message)
         }
-        console.log('neighbors', this, '<-->', found)
     } // for: there
     if (8 < this.neighbors.length)
         throw { name:'CellException', message:'too many neighbors' }

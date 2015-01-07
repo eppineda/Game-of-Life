@@ -23,7 +23,6 @@ angular.module('gameoflife.controllers', [])
         }
     }
     $scope.beginSimulation = function() {
-        console.log('BEGINNING SIMULATION')
         $scope.continue = true
         $scope.showSeed = false
 
@@ -44,8 +43,6 @@ angular.module('gameoflife.controllers', [])
 // Determine size of each grid cell.
 
         PlayField.cellSize = Math.floor(PlayField.extent.x / PlayField.max.x)
-        console.log("Grid spaces are now ", PlayField.cellSize, "pixels square on a field ", 
-                    PlayField.max.x, " X ", PlayField.max.y)
 
 // Capture all grid spaces. The bigger the grid, the longer this takes.
 
@@ -74,7 +71,6 @@ angular.module('gameoflife.controllers', [])
         svg.attr('height',  PlayField.extent.y)
 
         var plotCells = function(cells) {
-            console.log(getClockTime(), 'plotting ', cells.length, ' cells...')
             var rects = svg.selectAll('rect')
 
             rects.data(cells)
@@ -138,7 +134,6 @@ angular.module('gameoflife.controllers', [])
         }
     } // beginSimulation
     $scope.endSimulation = function() {
-        console.log('ENDING SIMULATION')
         $scope.continue = false
         $scope.showSeed = true
         svg.selectAll('rect').attr('class', 'dead')

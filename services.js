@@ -15,14 +15,12 @@ angular.module('gameoflife.services', [])
                 try { 
                     c = new Cell(coordinates[i].x, coordinates[i].y)
                 }
-                catch (CellException) { console.error(CellException.message) }
+                catch(CellException) { console.error(CellException.message) }
                 newCells[i] = c
             } // for: i
             return newCells
         }, // seed
         nextGeneration:function(all) {
-            console.log('----Transitioning current generation of cells')
-
             var nextGen = [] // births + deaths
             var numFound = -1
 
