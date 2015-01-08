@@ -4,6 +4,7 @@
     <link href="gameoflife.css" rel="stylesheet" type="text/css"></link>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="game.js"></script>
+    <script type="text/javascript" src="patterns.js"></script>
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="controllers.js"></script>
     <script type="text/javascript" src="services.js"></script>
@@ -20,9 +21,9 @@
         ng-change="setRows()" />
         <table id="seed">
         <thead>
-            <tr><th>#</th><th>x-coord</th><th>y-coord</th></tr>
+            <tr><th>#</th><th>x-coord</th><th>y-coord</th><th>pattern</tr>
             <tr>
-                <th colspan="3">
+                <th colspan="4">
                     <button id="randomize" ng-click="randomizeCoords()">randomize</button>
                 </th>
             </tr>
@@ -34,6 +35,13 @@
                     ng-model="seed.coords[seed.coords.indexOf(c)].x" /></td>
                 <td><input type="number" type="number" min="0" max="1000" 
                     ng-model="seed.coords[seed.coords.indexOf(c)].y" /></td>
+                <td>
+                    <select ng-model="selectedPattern" 
+                            ng-options="p.name for p in patterns" 
+                            ng-change="addPattern(seed.coords[seed.coords.indexOf(c)], selectedPattern); seed.coords.splice(c, 1);">
+                        <option value="">--optional--</option>
+                    </select>
+                </td>
             </tr>
         </tbody>
         </table>

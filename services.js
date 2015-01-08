@@ -6,18 +6,38 @@
 angular.module('gameoflife.services', [])
 .factory('Game', function() {
     return {
-        seed:function(coordinates) {
-            var howMany = coordinates.length
+        seed:function(coordinates, patterns) {
+            if ('object' != typeof coordinates || 'object' != typeof patterns) return []
+
             var newCells = []
-            for (var i = 0, j = howMany; i < j; ++i) {
+            var howMany = coordinates.length
+            var makeCell = function(coordinate) {
                 var c = null
 
                 try { 
-                    c = new Cell(coordinates[i].x, coordinates[i].y)
+                    c = new Cell(coordinate.x, coordinate.y)
                 }
-                catch(CellException) { console.error(CellException.message) }
-                newCells[i] = c
+                catch(CellException) {
+                    console.error(CellException.message)
+                    c = null
+                }
+                return c
+            }
+
+// Seed with the coordinates in the data entry table that don't have a pattern specified.
+
+            for (var i = 0, j = howMany; i < j; ++i) {
+                var c = makeCell(coordinates[i])
+
+                if (null != c) newCells[i] = c
             } // for: i
+
+// Seed with any patterns chosen, each located at the specified coordinate.
+
+            for (var p in patterns)
+                for (var c in patterns[p].cells)
+                    newCells.push(patterns[p].cells[c])
+
             return newCells
         }, // seed
         nextGeneration:function(all) {

@@ -201,8 +201,13 @@ Cell.prototype.findLiveNeighbors = function(cells) {
     return this.neighbors.length
 } // findLiveNeighbors
 
-var Pattern = function() {
+var Pattern = function(whereAt, template) {
+    if ('object' != typeof whereAt || 'object' != typeof template)
+        return null
     this.cells = [] // none in this pattern by default
+    this.name = template.name
+    for (var c in template.coords)
+        this.cells.push(new Cell(template.coords[c].x + whereAt.x, template.coords[c].y + whereAt.y))
 }
 
 // transitions

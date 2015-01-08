@@ -6,11 +6,13 @@
 angular.module('gameoflife.controllers', [])
 .controller('SimController', function($scope, $window, Game, Plotter) {
     var svg = null
+    var seedPatterns = []
 
     $scope.grid = { 'width':10, 'height':10 }
     $scope.seed = { 'howMany':0, 'coords':[] }
     $scope.continue = true
     $scope.showSeed = true
+    $scope.patterns = patterns
     $scope.setRows = function() {
         if ('undefined' == $scope.seed.howMany || 1 > $scope.seed.howMany) return
         for (var i = 0, j = $scope.seed.howMany; i < j; ++i)
@@ -59,7 +61,7 @@ angular.module('gameoflife.controllers', [])
 
 // Seed the simulation with live cells.
 
-        var seedCells = Game.seed($scope.seed.coords)
+        var seedCells = Game.seed($scope.seed.coords, seedPatterns)
         svg = d3.select('svg')
         
         for (var s = 0, sMax = seedCells.length; s < sMax; ++s) {
@@ -137,5 +139,8 @@ angular.module('gameoflife.controllers', [])
         $scope.continue = false
         $scope.showSeed = true
         svg.selectAll('rect').attr('class', 'dead')
+    }
+    $scope.addPattern = function(whereAt, pattern) {
+        seedPatterns.push(new Pattern(whereAt, pattern))
     }
 });
