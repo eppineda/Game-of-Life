@@ -31,11 +31,9 @@
             <tr ng-repeat="c in seed.coords">
                 <td style="text-align: right;">{{seed.coords.indexOf(c)}}</td>
                 <td><input type="number" min="0" max="1000"
-                    ng-model="seed.coords[seed.coords.indexOf(c)].x" 
-                    ng-change="setCoordinate()" /></td>
+                    ng-model="seed.coords[seed.coords.indexOf(c)].x" /></td>
                 <td><input type="number" type="number" min="0" max="1000" 
-                    ng-model="seed.coords[seed.coords.indexOf(c)].y" 
-                    ng-change="setCoordinate()" /></td>
+                    ng-model="seed.coords[seed.coords.indexOf(c)].y" /></td>
             </tr>
         </tbody>
         </table>
