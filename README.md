@@ -3,15 +3,9 @@ http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
 
 I. Introduction
 
-This was my first exposure to Conway's Game of Life. I'm not confident that I fully 
-understand the game's rules, so I'm not certain that the implementation is an accurate
-representation of cell behavior as defined by the game.  In particular,
-- "simultaneous" application of transition rules -- need to think more about what the
-implications are as each rule is applied to each cell.
-- rules governing the size of the initial cell population "seed". So, I left this up
+This was my first exposure to Conway's Game of Life.
+- Rules governing the size of the initial cell population "seed". I left this up
 to the end user, which includes both the quantity and the location of cells.
-- rules governing the size of the play "field", which appears to be up to the implementor and,
-therefore, configurable here.
 
 II. Files
 
@@ -25,20 +19,18 @@ B. File Listing
 * controllers.js - end user interaction
 * game.js - implementation of cell behavior
 * index.html - user interface
-* seed.js - a test script
+* patterns.js - provides templates for patterns of self-sustaining cells
 * services.js - game logic
 
 III. Status
 
-Not complete. Lacks a graphical display of cell generations as they occur.
+Complete.
 
 IV. Implementation History
 
-First round was low-level programming for cell behavior (game.js and seed.js, with index.html
-acting as the entry point for a static test script, which is now disabled but still in the markup.)
+First round was low-level programming for cell behavior (game.js).
 
-Second round was UI programming wih AngularJS, primarily making configurable to the end user 
-what was previously hard-coded simulation parameters.
+Second round was UI programming wih AngularJS.
 
 Third round was integration of game.js into the Angular application, creating controllers
 and services (controllers.js and services,js, respectively) as necessary.
@@ -49,9 +41,9 @@ A. Whether or not to allow off-grid (i.e. off-screen) cellular creation [ no. ]
 
 B. Graphical Display [ done. ]
 
-The current design uses a logical coordinate
-system, instead of a pixel-based system based on browser resolution. That is to say, for example,
-coordinate(50, 35) is not pixel-coordinate(50, 35).
+The current design uses a logical coordinate system, instead of a pixel-based 
+system based on browser resolution. That is to say, for example, coordinate(50, 35) 
+is not pixel-coordinate(50, 35).
 
 I also like the grid display in use by gitHub for a user's Contribution graph. That would 
 do very nicely. [ done, with d3.js, as in github. ]
@@ -78,3 +70,5 @@ or be rejuvenated.</del>
 <del>E. The game really should stop when all cells are dead.</del>
 
 F. Duplicate cells are allowed/possible.
+
+G. Off-grid cells get truncated and result in the simulator behaving as if they do not exist.
