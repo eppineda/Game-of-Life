@@ -24,7 +24,7 @@ B. File Listing
 
 III. Status
 
-Functionally complete, but really all that refined.
+Functionally complete, but not really all that refined.
 
 IV. Implementation History
 
