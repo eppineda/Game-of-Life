@@ -24,7 +24,7 @@ B. File Listing
 
 III. Status
 
-Complete.
+Functionally complete, but really all that refined.
 
 IV. Implementation History
 
@@ -37,9 +37,9 @@ and services (controllers.js and services,js, respectively) as necessary.
 
 V. Future Design Considerations
 
-A. Whether or not to allow off-grid (i.e. off-screen) cellular creation [ no. ]
+<del>A. Whether or not to allow off-grid (i.e. off-screen) cellular creation</del> [ no. ]
 
-B. Graphical Display [ done. ]
+<del>B. Graphical Display</del> [ done. ]
 
 The current design uses a logical coordinate system, instead of a pixel-based 
 system based on browser resolution. That is to say, for example, coordinate(50, 35) 

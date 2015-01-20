@@ -1,8 +1,3 @@
-/**
- * Game of Life. http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life
- * Copyright (c) 2014 Enrique Pineda
- */
-
 // coordinates, location and navigation
 
 var constants = { // adjacent cells can occur horizontally, veritcally or diagonnally
