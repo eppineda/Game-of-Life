@@ -1,6 +1,6 @@
 // coordinates, location and navigation
 
-var constants = { // adjacent cells can occur horizontally, veritcally or diagonnally
+var constants = { // adjacent cells can occur horizontally, vertically or diagonally
     "nw":"nw",
     "n":"n",
     "ne":"ne",
